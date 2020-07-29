@@ -1,0 +1,117 @@
+server.conf :
+{
+
+
+local 140.39.30.2
+
+port 1194
+
+;proto tcp
+proto udp
+
+;dev tap
+dev tun
+
+ca ca.crt
+cert server.crt
+key server.key  
+
+dh dh2048.pem
+
+username-as-common-name
+plugin /usr/lib/openvpn/openvpn-auth-ldap.so "/etc/openvpn/auth/auth-ldap.conf cn=%u"
+
+;client-cert-not-required
+
+server 192.168.3.0 255.255.255.0
+
+ifconfig-pool-persist /var/log/openvpn/ipp2.txt
+
+push "route 192.168.1.100 255.255.255.255"
+
+push "dhcp-option DNS 192.168.1.100"
+
+keepalive 10 120
+
+cipher AES-256-CBC
+
+persist-key
+persist-tun
+
+status /var/log/openvpn/openvpn-status.log
+
+;log         /var/log/openvpn/openvpn.log
+;log-append  /var/log/openvpn/openvpn.log
+
+verb 3
+
+;mute 20
+
+explicit-exit-notify 1
+
+
+}
+
+apt install openvpn-auth-ldap
+
+auth/auth-ldap.conf
+{
+
+<LDAP>
+	# LDAP server URL
+	URL		ldap://192.168.1.100
+
+	# Bind DN (If your LDAP server doesn't support anonymous binds)
+	BindDN		Administrator@skills.com	#uid=Administrator,dc=skills,dc=com
+
+	# Bind Password
+	Password	Skills39
+
+	# Network timeout (in seconds)
+	Timeout		15
+
+	# Enable Start TLS
+	#TLSEnable	yes
+
+	# Follow LDAP Referrals (anonymously)
+	#FollowReferrals yes
+
+	# TLS CA Certificate File
+	#TLSCACertFile	/usr/local/etc/ssl/ca.pem
+
+	# TLS CA Certificate Directory
+	#TLSCACertDir	/etc/ssl/certs
+
+	# Client Certificate and key
+	# If TLS client authentication is required
+	#TLSCertFile	/usr/local/etc/ssl/client-cert.pem
+	#TLSKeyFile	/usr/local/etc/ssl/client-key.pem
+
+	# Cipher Suite
+	# The defaults are usually fine here
+	# TLSCipherSuite	ALL:!ADH:@STRENGTH
+</LDAP>
+
+<Authorization>
+	# Base DN
+	BaseDN		"ou=IT,dc=skills,dc=com"
+
+	# User Search Filter
+	SearchFilter	"(cn=%u)"	#(accountStatus=active)
+
+	# Require Group Membership
+	RequireGroup	false
+
+	# Add non-group members to a PF table (disabled)
+	#PFTable	ips_vpn_users
+
+	#<Group>
+	#	BaseDN		"ou=Groups,dc=example,dc=com"
+	#	SearchFilter	"(|(cn=developers)(cn=artists))"
+	#	MemberAttribute	uniqueMember
+	#	# Add group members to a PF table (disabled)
+	#	#PFTable	ips_vpn_eng
+	#</Group>
+</Authorization>
+
+}

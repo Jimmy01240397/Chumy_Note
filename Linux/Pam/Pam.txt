@@ -1,0 +1,61 @@
+在這個設定檔當中，除了第一行宣告 PAM 版本之外，其他任何『 # 』開頭的都是註解，而每一行都是一個獨立的驗證流程， 每一行可以區分為四個欄位，分別是驗證類別(type)、控制標準(flag)、PAM的模組與該模組的參數。
+
+第一個欄位：驗證類別 (Type)
+驗證類別主要分為四種，分別說明如下：
+
+auth
+是 authentication (認證) 的縮寫，所以這種類別主要用來檢驗使用者的身份驗證，這種類別通常是需要密碼來檢驗的， 所以後續接的模組是用來檢驗使用者的身份。
+
+account
+account (帳號) 則大部分是在進行 authorization (授權)，這種類別則主要在檢驗使用者是否具有正確的使用權限， 舉例來說，當你使用一個過期的密碼來登入時，當然就無法正確的登入了。
+
+session
+session 是會議期間的意思，所以 session 管理的就是使用者在這次登入 (或使用這個指令) 期間，PAM 所給予的環境設定。 這個類別通常用在記錄使用者登入與登出時的資訊！例如，如果你常常使用 su 或者是 sudo 指令的話， 那麼應該可以在 /var/log/secure 裡面發現很多關於 pam 的說明，而且記載的資料是『session open, session close』的資訊！
+
+password
+password 就是密碼嘛！所以這種類別主要在提供驗證的修訂工作，舉例來說，就是修改/變更密碼啦！
+這四個驗證的類型通常是有順序的，不過也有例外就是了。 會有順序的原因是，(1)我們總是得要先驗證身份 (auth) 後， (2)系統才能夠藉由使用者的身份給予適當的授權與權限設定 (account)，而且(3)登入與登出期間的環境才需要設定， 也才需要記錄登入與登出的資訊 (session)。如果在運作期間需要密碼修訂時，(4)才給予 password 的類別。這樣說起來， 自然是需要有點順序吧！
+
+第二個欄位：驗證的控制旗標 (control flag)
+那麼『驗證的控制旗標(control flag)』又是什麼？簡單的說，他就是『驗證通過的標準』啦！ 這個欄位在管控該驗證的放行方式，主要也分為四種控制方式：
+
+required
+此驗證若成功則帶有 success (成功) 的標誌，若失敗則帶有 failure 的標誌，但不論成功或失敗都會繼續後續的驗證流程。 由於後續的驗證流程可以繼續進行，因此相當有利於資料的登錄 (log) ，這也是 PAM 最常使用 required 的原因。
+
+requisite
+若驗證失敗則立刻回報原程式 failure 的標誌，並終止後續的驗證流程。若驗證成功則帶有 success 的標誌並繼續後續的驗證流程。 這個項目與 required 最大的差異，就在於失敗的時候還要不要繼續驗證下去？由於 requisite 是失敗就終止， 因此失敗時所產生的 PAM 資訊就無法透過後續的模組來記錄了。
+
+sufficient
+若驗證成功則立刻回傳 success 給原程式，並終止後續的驗證流程；若驗證失敗則帶有 failure 標誌並繼續後續的驗證流程。 這玩意兒與 requisits 剛好相反！
+
+optional
+這個模組控制項目大多是在顯示訊息而已，並不是用在驗證方面的。
+
+第三個欄位：模組(在/lib/x86_64-linux-gnu/security/pam_*.so)
+
+pam_access.so 　　pam_lastlog.so　　 pam_permit.so　　　 pam_unix.so
+pam_chroot.so 　　pam_limits.so 　　 pam_pwcheck.so 　　 pam_unix2.so
+pam_cracklib.so 　pam_listfile.so 　 pam_resmgr.so 　　　pam_unix_acct.so
+pam_debug.so 　　 pam_localuser.so 　pam_rhosts_auth.so　pam_unix_auth.so
+pam_deny.so 　　　pam_mail.so 　　　 pam_rootok.so 　　　pam_unix_passwd.so
+pam_devperm.so 　 pam_make.so 　　　 pam_rpasswd.so 　　 pam_unix_session.so
+pam_echo.so 　　　pam_mkhomedir.so 　pam_securetty.so 　 pam_userdb.so
+pam_env.so 　　　 pam_mktemp.so 　　 pam_shells.so 　　　pam_userpass.so
+pam_filter 　　　 pam_motd.so 　　　 pam_smbpass.so 　　 pam_warn.so
+pam_filter.so 　　pam_ncp_auth.so 　 pam_stress.so 　　　pam_wheel.so
+pam_ftp.so 　　　 pam_nologin.so 　　pam_succeed_if.so　 pam_winbind.so
+pam_group.so 　　 pam_opensc.so 　　 pam_tally.so 　　　 pam_xauth.so
+pam_homecheck.so　pam_opie.so 　　　 pam_time.so
+pam_issue.so 　　 pam_passwdqc.so 　 pam_umask.so
+
+pamMod.png
+
+第四個欄位：模組參數
+
+use_first_pass	認證模組不會要求使用者輸入密碼，而是從之前的 auth modules 來取得使用者密碼，若密碼不符合或未輸入密碼，則視為認證失敗。
+
+try_first_pass	認證模組不會要求使用者輸入密碼，而是從之前的 auth modules 來取得使用者密碼，若密碼不符合或未輸入密碼則要求重新輸入一次。
+
+debug	讓 syslogd 將 level 為 debug 等級的資訊寫入紀錄檔內。
+
+nullok	允許無密碼 ( /etc/shadow 的密碼欄位是空的 ) 的使用者可以登入系統。

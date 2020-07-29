@@ -1,0 +1,16 @@
+﻿OCSP設定:
+
+https://www.youtube.com/watch?v=lWZIHoAwu2c
+
+CRL設定:
+
+crl網址三個都勾
+
+AIA設定:
+
+看需要把CRT檔改名
+
+
+
+檢查:
+certutil -f -urlfetch -verify 憑證位置

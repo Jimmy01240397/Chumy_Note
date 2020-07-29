@@ -1,0 +1,15 @@
+ProxyPass /標籤 http://網址
+ProxyPassReverse /標籤 http://網址
+
+ProxyPassMatch 正規表達式 http://網址
+
+ProxyPreserveHost on
+
+SSL反向代理
+
+SSLEngine on
+SSLProxyEngine on
+SSLProxyVerify none
+SSLProxyCheckPeerCN off
+SSLProxyCheckPeerName off
+SSLProxyCheckPeerExpire off

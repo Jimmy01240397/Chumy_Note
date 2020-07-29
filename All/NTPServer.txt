@@ -1,0 +1,12 @@
+Windows Server:
+
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Parameters"
+[Type]設定值修改為NTP。
+
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Config"
+[AnnounceFlags]修改設定值為5
+
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpServer"
+[Enabled]數值修改為1
+
+

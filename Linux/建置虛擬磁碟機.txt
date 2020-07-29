@@ -1,0 +1,4 @@
+dd if=/dev/zero of=磁碟機位置與名稱 bs=1 count=容量
+mkfs.ext4  磁碟機位置與名稱
+mkdir 要掛的位置
+mount 磁碟機位置與名稱 要掛的位置

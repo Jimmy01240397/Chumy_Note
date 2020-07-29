@@ -1,0 +1,38 @@
+apt-get install isc-dhcp-server
+vi /etc/default/isc-dhcp-server :
+{
+	# line 4: uncomment
+	DHCPDv4_CONF=/etc/dhcp/dhcpd.conf
+
+	# line 17,18: specify interface to listen (replace the IF name to your environment)
+	# if not use IPv6, comment out the line
+	INTERFACESv4="介面卡"
+	# INTERFACESv6=""
+}
+
+vi /etc/dhcp/dhcpd.conf :
+{
+	option domain-name "網域";
+
+	option domain-name-servers (DNS Server IP);
+
+	authoritative;
+
+	subnet 192.168.1.0(要分享的網域IP) netmask 255.255.255.0(子網路遮罩) {
+    		# specify default gateway
+    		option routers      192.168.1.1;(預設閘道)
+    		# specify subnet-mask
+    		option subnet-mask  255.255.255.0;(子網路遮罩)
+    		# specify the range of leased IP address
+    		range dynamic-bootp 10.0.0.200 10.0.0.254;(範圍)
+	}
+	
+
+	#設定MAC位址對應的IP
+	host 可辨識的名稱 {
+    		hardware ethernet MAC位址;                                                                                                                                          
+    		fixed-address IP位址;
+	}
+}
+
+/etc/init.d/isc-dhcp-server restart

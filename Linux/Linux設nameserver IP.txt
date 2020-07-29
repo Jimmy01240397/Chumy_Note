@@ -1,0 +1,11 @@
+設定 /etc/resolv.conf 檔案
+此檔案可用來設定 DNS 用戶端要求名稱解析時，所定義的各項內容。我們分別來看一個完整的resolv.conf的檔案:
+
+domain twnic.com.tw
+nameserver 192.168.10.1
+nameserver 192.168.2.5
+search twnic.com.tw twnic.net.tw
+				
+“domain”指定本地的網域名稱，如果查詢時的名稱沒有包含小數點，則會自動補上此處的網域名稱為字尾再送給DNS伺服器。
+“nameserver”指定用戶端要求進行名稱解析的 nameserver IP位址，在此可指定多部DNS伺服器，則用戶端將會依序提出查詢要求。
+“search”這個選項為非必要選項，而功能在於若使用者指定主機名稱查詢時，所需要搜尋的網域名稱。例如，當我們設 “search twnic.com.tw”時，當DNS伺服器在做名稱解析過程中，無法對輸入的名稱，例如pc1，找出相對應的IP時，則DNS會利用search的設定值加上需查詢的名稱，即pc1.twnic.com.tw來進行解析，解析失敗時則會嘗試pc1.twnic.net.tw。

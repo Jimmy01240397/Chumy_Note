@@ -1,0 +1,14 @@
+a2enmod ldap
+
+<Directory 目錄>
+	Options Indexes FollowSymLinks
+	AllowOverride None
+
+	AuthBasicProvider ldap
+	AuthLDAPURL "ldap://IP/DC=your,DC=domain,DC=name?cn?sub"
+	AuthLDAPBindDN "Administrator@your.domain.name"
+	AuthLDAPBindPassword 密碼
+	AuthType Basic
+	AuthName "註解"
+	Require ldap-group CN=IT,CN=Users,DC=skills,DC=com   # 這是distinguishedName在Attribute Editor頁面可以找到
+</Directory>

@@ -1,0 +1,10 @@
+vim /etc/apache2/mods-available/ratelimit.conf :
+{
+	<IfModule mod_ratelimit.c>
+		<Directory /path/to/your/directory>
+    			SetOutputFilter RATE_LIMIT
+    			SetEnv rate-limit º∆¶r(≥Ê¶ÏKB/S)
+		</Directory>
+	</IfModule>
+}
+a2enmod ratelimit

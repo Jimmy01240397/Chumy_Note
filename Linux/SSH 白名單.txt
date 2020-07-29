@@ -1,0 +1,6 @@
+vim /etc/ssh/sshd_config :
+{
+...
+Match (Address,User,Group) (Name)
+	©R¥O
+}

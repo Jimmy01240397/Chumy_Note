@@ -1,0 +1,3 @@
+HTTP回應標頭
+Content-Disposition: attachment;filename=certnew.cer
+Content-Type: application/force-download

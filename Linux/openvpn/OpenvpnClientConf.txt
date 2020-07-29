@@ -1,0 +1,107 @@
+# 指定我們是客戶端，並將從服務器中提取某些配置文件指令。
+client
+
+# 使用與服務器上相同的設置。 
+# 在大多數係統上，
+# 除非您部分或完全禁用TUN/TAP接口的防火牆，
+# 否則VPN將無法運行。
+;dev tap
+dev tun
+
+# 如果您有多個，
+# Windows需要從“網絡連接”面板中選擇TAP-Win32適配器名稱。 
+# 在XP SP2上，您可能需要禁用TAP適配器的防火牆。
+;dev-node MyTap
+
+# 我們要連接到TCP或UDP服務器嗎？ 
+# 使用與服務器上相同的設置。
+;proto tcp
+proto udp
+
+# 服務器的主機名/ IP和端口。 
+# 您可以具有多個遠程條目以在服務器之間進行負載平衡。
+remote my-server-1 1194
+;remote my-server-2 1194
+
+# 從遠程列表中選擇一個隨機主機進行負載平衡。 
+# 否則，請按指定的順序嘗試主機。
+;remote-random
+
+# 繼續無限嘗試解析OpenVPN服務器的主機名。 
+# 在未永久連接到互聯網的計算機（例如筆記本電腦）上非常有用。
+resolv-retry infinite
+
+# 大多數客戶端不需要綁定到特定的本地端口號。
+nobind
+
+# 初始化後降級特權（僅非Windows）
+;user nobody
+;group nogroup
+
+# 嘗試在重新啟動後保留一些狀態。
+persist-key
+persist-tun
+
+# 如果要通過HTTP代理進行連接以到達實際的OpenVPN服務器，
+# 請在此處放置代理服務器/ IP和端口號。 
+# 如果您的代理服務器需要身份驗證，
+# 請參見手冊頁。
+;http-proxy-retry # retry on connection failures
+;http-proxy [proxy server] [proxy port #]
+
+# 無線網絡通常會產生很多重複的數據包。 
+# 設置此標誌可使重複的數據包警告靜音。
+;mute-replay-warnings
+
+# SSL/TLS參數。 
+# 有關更多說明，
+# 請參見服務器配置文件。 
+# 最好為每個客戶端使用單獨的.crt/.key文件對。 
+# 單個ca文件可用於所有客戶端。
+ca ca.crt
+cert client.crt
+key client.key
+
+# 通過檢查證書是否具有正確的密鑰用法設置來驗證服務器證書。 
+# 這是防止此處討論的潛在攻擊的重要預防措施：http://openvpn.net/howto.html#mitm
+
+# 要使用此功能，您將需要將keyUsage設置為來生成服務器證書。
+#     digitalSignature, keyEncipherment
+# 和extendedKeyUsage
+#     serverAuth
+# EasyRSA可以為您做到這一點。
+remote-cert-tls server
+
+# 如果在服務器上使用了tls-auth密鑰，
+# 則每個客戶端也必須具有該密鑰。
+tls-auth ta.key 1
+
+# 選擇一個加密密碼。 
+# 如果在服務器上使用了cipher選項，
+# 則還必須在此處指定它。 請注意，
+# v2.4客戶端/服務器將以TLS模式自動協商AES-256-GCM。 
+# 另請參見手冊頁中的ncp-cipher選項
+cipher AES-256-CBC
+
+# 開啟使用者帳號密碼驗證
+auth-user-pass
+
+# 在VPN鏈接上啟用壓縮。 
+# 除非在服務器配置文件中也啟用了此功能，
+# 否則不要啟用它。
+#comp-lzo
+
+# 設置日誌文件的詳細程度。
+verb 3
+
+# 沉默重複消息
+;mute 20
+
+<ca>
+</ca>
+
+<cert>
+</cert>
+
+<key>
+</key>

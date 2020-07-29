@@ -1,0 +1,17 @@
+Reverse Web Proxy
+
+http_access allow all
+
+
+
+http_port 80 accel vhost vport
+
+cache_peer cert.skills.com          parent    80       0  no-query 
+
+
+
+https_port 443 accel tls-cert=/etc/squid/cert/proxy.cer tls-key=/etc/squid/cert/key.key
+
+cache_peer www.skills.com          parent    80       0  no-query 
+
+cache_peer internal.skills.com          parent    80       0  no-query 

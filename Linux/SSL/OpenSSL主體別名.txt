@@ -1,0 +1,9 @@
+vim /etc/ssl/openssl.cnf :
+{
+	[req]
+	req_extensions = v3_req
+	[ v3_req ]
+	subjectAltName = @alt_names
+	[alt_names]
+	DNS.n(¼Æ¦r) = DomainName(FQDN)
+}

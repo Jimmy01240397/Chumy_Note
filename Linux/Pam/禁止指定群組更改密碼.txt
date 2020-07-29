@@ -1,0 +1,5 @@
+password [success=2(跳過的指令行數) default=ignore] pam_succeed_if.so use_uid user notingroup 群組名
+
+password optional pam_echo.so file=要顯示的訊息檔(這行可省略，作為MSG而已)
+
+password requisite pam_deny.so

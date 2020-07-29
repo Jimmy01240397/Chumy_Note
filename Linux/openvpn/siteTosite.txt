@@ -1,0 +1,43 @@
+local 140.39.30.2
+
+proto tcp-server OR udp
+
+dev tun OR tap
+
+ca ca.crt
+cert server.crt
+key server.key 
+
+dh dh2048.pem
+
+ifconfig 10.0.0.1 255.255.255.252 #10.0.0.2
+
+route 192.168.0.0 255.255.0.0 10.0.0.2
+;push "route 192.168.20.0 255.255.255.0"
+
+;redirect-gateway def1 bypass-dhcp
+
+push "dhcp-option DNS 192.168.1.100"
+
+keepalive 10 120
+
+cipher AES-256-CBC
+
+user nobody
+group nogroup
+
+persist-key
+persist-tun
+
+status /var/log/openvpn/openvpn-status.log
+
+;log         /var/log/openvpn/openvpn.log
+;log-append  /var/log/openvpn/openvpn.log
+
+verb 3
+
+tls-server
+
+;mute 20
+
+explicit-exit-notify 0

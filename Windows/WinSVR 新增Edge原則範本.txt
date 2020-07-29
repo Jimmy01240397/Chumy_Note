@@ -1,0 +1,2 @@
+複製Win10的C:\Windows\PolicyDefinitions\MicrosoftEdge.admx 與 C:\Windows\PolicyDefinitions\<語言>\MicrosoftEdge.adml
+至WinSVR的相同位置

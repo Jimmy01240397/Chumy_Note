@@ -1,0 +1,12 @@
+﻿WINSVR:
+for /l %變數 in (1,1,9) do (dsadd user "cn=使用者名稱,ou=組織單位,dc=網域,dc=網域" -display 顯示之使用者名稱 -pwd 密碼) 
+Get-ADUser -Filter 'Name -like "使用者名稱"' | Set-ADObject -ProtectedFromAccidentalDeletion:$true (防止意外刪除)
+
+Debian:
+groupadd 群組名稱
+for 變數 in $(seq 1 1 9) 
+do
+	useradd -s /bin/bash 使用者名稱
+	echo "使用者名稱:密碼" | chpasswd
+	gpasswd -a 使用者名稱 群組名稱
+done

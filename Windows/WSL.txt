@@ -1,0 +1,7 @@
+Linux Reset:
+刪除 檔案  C:\Program Files (x86)\Debian\rootfs、C:\Program Files (x86)\Debian\temp
+刪除 登陸檔  HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Lxss
+
+更換預設使用者:
+debian config --default-user 使用者名稱
+

@@ -1,0 +1,2 @@
+ps -aux | grep tty
+kill -9 ³B²zµ{§ÇID

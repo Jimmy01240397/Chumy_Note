@@ -1,0 +1,16 @@
+alias 嘿='1;2'
+
+ㄏノ嘿
+
+盿把计
+function ㄧΑ() 
+{
+	1 $1(把计1)
+	2 $2(把计2)
+}
+alias 嘿='ㄧΑ'
+
+ㄏノ嘿 把计1 把计2
+
+
+盢块 /etc/profile ┪ /ㄏノヘ魁/.bashrc 秨诀笆蹲

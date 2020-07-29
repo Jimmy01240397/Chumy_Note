@@ -1,0 +1,55 @@
+RewriteEngine On
+
+RewriteCond 導向規則
+
+RewriteRule 規則表示式.html$ 新網址()=>$1 [旗標]
+
+說明:
+
+RewriteEngine On :將重寫引擎設為 On
+
+RewriteRule:重寫網址規則
+
+([0-9]+): 表示參數值為數字
+
+([a-z]+): 表示參數值為英文
+
+(.*) : 表示參數萬用字元(可接受中文字)
+
+以下方範例網址來說:
+
+http://aidec.tw/look.php?action=1&post=艾德克工作室
+
+RewriteRule ^([0-9]+)-(.*)\.html$ look.php?action=$1&post=$2 [L,NC]
+
+action=$1 對應 ([0-9]+)
+
+post=$2 對應 (.*)
+
+最後面的參數解釋
+
+[NC] (不分字母大小寫)
+
+[NE] (不再輸出轉義特殊字符)
+
+[OR] (或者, 用來與下一規則連結用)
+
+[R]   重新導向
+[F]   重新導向到 403 forbidden 頁面
+
+[G]   重新導向到 410 forbidden 頁面
+
+[P]   強制使用代理
+
+[N] 重新從第一條規則開始運行
+
+[L]   表示這是最後一條規則
+
+RewriteRule規則表示式:
+.           任何單一字母
+?           0個或是1個字母
+*           0個或是N個字母
++          1個或是N個字母
+^          表示一行的開始
+$           表示一行的結束
+\            跳脫字元(顯示符號本身)

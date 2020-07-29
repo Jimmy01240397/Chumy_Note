@@ -1,0 +1,3 @@
+trap 指令 EXIT
+
+僅限當次登出，若要每次必須將此指令寫入/etc/bash.bashrc(全域) 或 /home/%USER/.bashrc(區域)

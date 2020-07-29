@@ -1,0 +1,3 @@
+-A INPUT -m recent --rcheck --seconds 時間 --hitcount 次數 --name 檔名不用目錄(位於/proc/net/xt_recent/中) --rsource -j DROP => 比對來源IP，若時間內檔案中記錄的封包次數等於指定次數則DROP
+-A INPUT -m recent --set --name 檔名不用目錄(位於/proc/net/xt_recent/中) --rsource => 將該封包來源IP記錄到檔案中一次
+-A INPUT -j ACCEPT

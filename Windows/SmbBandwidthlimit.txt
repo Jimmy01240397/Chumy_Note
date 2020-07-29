@@ -1,0 +1,4 @@
+PS: Set-SmbBandwidthLimit -Category LiveMigration -BytesPerSecond 每秒流量
+
+查看:
+PS: Get-SmbBandwidthLimit -Category LiveMigration

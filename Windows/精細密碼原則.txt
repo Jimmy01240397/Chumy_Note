@@ -1,0 +1,6 @@
+伺服器管理員 > 工具 > Active Directory 管理中心
+點選左側[網域名稱本機] > System
+點選 Password Settings Container
+點選滑鼠右鍵 > 新增 > 密碼設定
+輸入相關密碼原則設定值
+密碼相關原則設定完畢後，就可以在下面套用相關人員，或是群組

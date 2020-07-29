@@ -1,0 +1,11 @@
+查user資訊:
+id %username%
+
+指定使用者權限:
+
+apt install acl
+setfacl -m u:username:權限 file
+getfacl file
+
+更改擁有者:
+chown -R myuser:mygroup myfolder

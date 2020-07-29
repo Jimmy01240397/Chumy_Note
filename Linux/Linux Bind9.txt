@@ -1,0 +1,8 @@
+forward:
+
+dnssec-validation no;(兩邊Bind都要)
+
+zone "網域名稱" {
+	type fordward;
+	fordwarders { 轉送目標IP };
+}
