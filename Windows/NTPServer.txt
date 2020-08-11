@@ -1,0 +1,86 @@
+1. 確認Windows Time服務為執行中
+系統管理工具＞服務，確認Windows Time (W32Time)服務為已啟動。
+ 
+2. 將伺服器類型變更為 NTP
+	a. 開始＞執行，輸入regedit，開啟登錄編輯程式
+	b. 找出下列登錄子機碼 HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Parameters
+	c. 在右窗格中，將 [Type]的數值資料修改為NTP，然後按下[確定]。
+
+------------------------------------------------------------------------------------------------------------
+Type	Description
+
+NoSync	The time service does not synchronize with other sources.
+NTP	The time service synchronizes from the servers specified in the NtpServer..
+NT5DS	The time service synchronizes from the domain hierarchy.
+AllSync	The time service uses all the available synchronization mechanisms.
+
+The default value on domain members is NT5DS. The default value on stand-alone clients and servers is NTP.
+------------------------------------------------------------------------------------------------------------
+
+
+3. 設定這台伺服器為可信賴的時間伺服器，將 [AnnounceFlags] 設為 5。
+	a. 找出下列登錄子機碼HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Config
+	b. 在右窗格中，將[AnnounceFlags]的數值資料修改為5，然後按下[確定]。
+
+------------------------------------------------------------------------------------------------------------
+Type	Description
+
+0x00	Not a time server
+0x01	Always time server
+0x02	Automatic time server
+0x04	Always reliable time server
+0x08	Automatic reliable time server
+
+The default value for domain members is 10. The default value for stand-alone clients and servers is 10.
+------------------------------------------------------------------------------------------------------------
+
+4. 設定這台伺服器為NTP伺服器提供者。
+	a. 找出下列登錄子機碼HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpServer
+	b. 在右窗格中，將[Enabled]的數值資料改為1，然後按下 [確定]。
+
+------------------------------------------------------------------------------------------------------------
+Type	Description
+1	Yes
+0	No
+------------------------------------------------------------------------------------------------------------
+ 
+5. 指定外部NTP伺服器
+	a. 找出下列登錄子機碼HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Parameters
+	b. 在右窗格中，將[NtpServer]的數值資料改為time.stdtime.gov.tw,0x1 clock.stdtime.gov.tw,0x1，然後按下 [確定]。
+	Ps. Peers 是以空格分隔的對等裝置清單的預留位置，您的電腦會從中取得時間戳記。清單所列的每個 DNS 名稱必須都是唯一的。您必須在每個 DNS 名稱的結尾加上 ,0x1。如果沒有在每個 DNS 名稱的結尾加上 ,0x1，您在步驟 6 所做的變更將不會生效。
+
+------------------------------------------------------------------------------------------------------------
+Type	Description
+
+0x01	SpecialInterval
+0x02	UseAsFallbackOnly
+0x04	SymmetricActive
+0x08	Client
+
+There is no default value for this registry entry on domain members. The default value on stand-alone clients and servers is time.windows.com,0x1.
+------------------------------------------------------------------------------------------------------------
+ 
+6. 設定時間伺服器與外部NTP伺服器輪詢間隔
+	a. 找出下列登錄子機碼HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpClient
+	b. 在右窗格中，將[SpecialPollInterval]的數值資料改為TimeInSeconds，然後按下 [確定]。
+	Ps. TimeInSeconds 是每個輪詢之間您所指定秒數的預留位置。建議值為 900 (十進位)。這個值會將 Time Server 設定為每隔 15 分鐘輪詢一次。
+
+7. 設定時間修正設定值，也就是設定來跟這台時間伺服器詢問時間的機器，跟你的誤差時間為多少區間內是合理的，也就是說如果差距過大，可以拒絕將正確時間回報來詢問的電腦。
+	a. 找出下列登錄子機碼HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Config
+	b. 在右窗格中，將[MaxPosPhaseCorrection] 的數值資料改為TimeInSeconds(十進位)，然後按下 [確定]。
+	c. 在右窗格中，將[MaxNegPhaseCorrection] 的數值資料改為TimeInSeconds(十進位)，然後按下 [確定]。
+	Ps. TimeInSeconds 是合理數值的預留位置，例如 1 小時 (3600) 或 30 分鐘 (1800)。您所選取的值將需依據輪詢間隔、網路狀況及外部時間來源而定。在 Windows Server 2008 R2 或更新版本中，MaxPosPhaseCorrection與MaxNegPhaseCorrection的預設值為 48 小時。
+	※機碼區分為起與迄，即為「Neg ← 現在時間 → Pos」。
+ 
+8. 關閉登錄編輯程式
+ 
+9. 因NTP服務使用UDP 123通訊埠，接著要在防火牆新增輸入規則(開啟UDP 123 Port)
+ 
+10.重啟Windows Time 服務，輸入net stop w32time && net start w32time
+ 
+11.檢查時間伺服器是否正常運作
+w32tm /query /configuration 顯示執行階段的設定，以及設定的來源。
+w32tm /query /status 顯示 Windows 時間服務狀態。 
+w32tm /query /source 顯示時間來源  
+w32tm /monitor 顯示DC之間時間狀態
+w32tm /resync /rediscover 重新連接NTP伺服器

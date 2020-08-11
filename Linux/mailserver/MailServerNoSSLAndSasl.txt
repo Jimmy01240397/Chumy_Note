@@ -1,0 +1,23 @@
+vi /etc/postfix/main.cf:
+
+smtpd_use_tls=no
+myhostname = wsc2019.org.tw
+mydestination = $myhostname, lnxsrv1, localhost.localdomain, , localhost,wsc2019.org.tw
+mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 192.168.10.0/23 192.168.20.0/24
+
+
+vi /etc/dovecot/conf.d/10-ssl.conf:
+
+ssl = no
+
+
+vi /etc/dovecot/conf.d/10-auth.conf:
+
+disable_plaintext_auth = no
+
+
+vi /etc/dovecot/conf.d/10-master.conf:
+
+inet_listener imap {
+	port = 143
+}

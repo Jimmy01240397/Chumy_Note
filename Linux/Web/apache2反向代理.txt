@@ -1,3 +1,5 @@
+a2enmod proxy_http
+
 ProxyPass /標籤 http://網址
 ProxyPassReverse /標籤 http://網址
 
@@ -5,7 +7,7 @@ ProxyPassMatch 正規表達式 http://網址
 
 ProxyPreserveHost on
 
-SSL反向代理
+SSL反向代理:
 
 SSLEngine on
 SSLProxyEngine on
@@ -13,3 +15,14 @@ SSLProxyVerify none
 SSLProxyCheckPeerCN off
 SSLProxyCheckPeerName off
 SSLProxyCheckPeerExpire off
+
+loadbalan:
+
+a2enmod proxy_balancer
+a2enmod ibmethod_*
+<Proxy balancer://loadbalan>
+	balancerMember http://lnxsrv1_web.wsc2019.org.tw/ timeout=1
+	balancerMember http://winsrv2_web.wsc2019.org.tw/ status=+H
+</Proxy>
+
+ProxyPass / balancer://loadbalan/
