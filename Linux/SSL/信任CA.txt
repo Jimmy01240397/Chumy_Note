@@ -1,0 +1,10 @@
+添加憑證：
+1.复制副檔名為.crt的 CA 文件到目录： /usr/local/share/ca-certificates/
+2.执行:
+sudo cp foo.crt /usr/local/share/ca-certificates/foo.crt
+3.更新 CA 憑證库:
+sudo update-ca-certificates
+移除憑證：
+1.Remove your CA.
+2.Update the CA store:
+sudo update-ca-certificates --fresh
