@@ -1,0 +1,13 @@
+簽署憑證dns使用『主機DNS』非MX
+
+vim /etc/dovecot/conf.d/10-auth.conf :
+
+disable_plaintext_auth = yes
+
+
+vim /etc/dovecot/conf.d/10-ssl.conf :
+
+ssl = required
+ssl_cert = </etc/pki/dovecot/憑證
+ssl_key =  </etc/pki/dovecot/KEY
+

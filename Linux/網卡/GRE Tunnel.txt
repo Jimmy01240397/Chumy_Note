@@ -1,0 +1,6 @@
+#!/bin/bash
+
+ip tunnel add gre mode gre remote 對方外網IP local 自己外網IP
+ip addr add 自己內網IP dev gre
+ifconfig gre up
+route add -net 對方內網IP網段 dev gre

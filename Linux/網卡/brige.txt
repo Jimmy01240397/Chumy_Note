@@ -1,0 +1,10 @@
+auto 網卡名1
+iface 網卡名1 inet manual
+
+auto 網卡名2
+iface 網卡名2 inet manual
+
+auto br0
+iface br0 inet static
+	brige-ports 網卡名1 網卡名2...
+	adress IP

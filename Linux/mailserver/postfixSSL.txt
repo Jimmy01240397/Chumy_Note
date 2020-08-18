@@ -1,0 +1,13 @@
+vi /etc/postfix/main.cf:
+
+smtpd_tls_cert_file=憑證位置
+smtpd_tls_key_file=KEY位置
+smtpd_use_tls=yes
+
+
+vi /etc/postfix/master.cf:
+
+smtps     inet  n       -       y       -       -       smtpd		=>解註解
+  -o syslog_name=postfix/smtps		=>解註解
+  -o smtpd_tls_wrappermode=yes		=>解註解
+  -o smtpd_sasl_auth_enable=yes		=>解註解

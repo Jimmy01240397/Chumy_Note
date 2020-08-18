@@ -1,0 +1,13 @@
+vi /etc/postfix/main.cf:
+
+smtpd_sasl_type = dovecot
+smtpd_sasl_path = private/auth
+smtpd_sasl_security_options = noanonymous
+smtpd_sasl_local_domain = $myhostname
+smtpd_recipient_restrictions = permit_sasl_authenticated defer_unauth_destination
+
+
+vi /etc/postfix/master.cf:
+
+  -o syslog_name=postfix/submission		=>解註解
+  -o smtpd_sasl_auth_enable=yes			=>解註解

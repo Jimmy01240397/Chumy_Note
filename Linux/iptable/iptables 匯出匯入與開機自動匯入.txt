@@ -2,16 +2,18 @@
 iptables-save > /etc/iptables.up.rules
 
 匯入： 
-iptables-restore < /etc/iptables.up.rules
+iptables-restore /etc/iptables.up.rules
 
 開機自動載入：
 vim /etc/network/if-pre-up.d/iptables :
 {
-	#!/bin/sh
-	/sbin/iptables-restore < /etc/iptables.up.rules
+	#!/bin/bash
+	iptables-restore /etc/iptables.up.rules
 }
 chmod +x /etc/network/if-pre-up.d/iptables
 
-使用 iptables-persistent 套件：
-/etc/init.d/iptables-persistent save
-/etc/init.d/iptables-persistent reload
+
+使用套件開機自動匯入:
+
+apt-get install iptables-persistent
+iptables-save > /etc/iptables/rules.v4

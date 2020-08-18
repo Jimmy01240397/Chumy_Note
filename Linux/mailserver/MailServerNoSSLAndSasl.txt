@@ -1,23 +1,30 @@
 vi /etc/postfix/main.cf:
 
-smtpd_use_tls=no
-myhostname = wsc2019.org.tw
+smtpd_use_tls=yes
+smtpd_relay_restrictions = permit_sasl_authenticated defer_unauth_destination
+myhostname = wsc2019.org.tw			=>MX
 mydestination = $myhostname, lnxsrv1, localhost.localdomain, , localhost,wsc2019.org.tw
-mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128 192.168.10.0/23 192.168.20.0/24
 
 
 vi /etc/dovecot/conf.d/10-ssl.conf:
 
-ssl = no
+ssl = required
 
 
 vi /etc/dovecot/conf.d/10-auth.conf:
 
-disable_plaintext_auth = no
+disable_plaintext_auth = yes
+auth_mechanisms = plain login
 
 
 vi /etc/dovecot/conf.d/10-master.conf:
 
 inet_listener imap {
 	port = 143
+}
+
+unix_listener /var/spool/postfix/private/auth {
+    mode = 0666
+    user = postfix
+    group = postfix
 }
