@@ -1,0 +1,8 @@
+##easy-rsa 
+mkdir /etc/openvpn/easyrsa
+cd etc/openvpn/easyrsa
+cp -r /usr/share/easy-rsa/* .
+./easyrsa init-pki 
+./easyrsa build-ca nopass 
+./easyrsa build-server-full server1 nopass 
+./easyrsa build-client-full client1 nopass 

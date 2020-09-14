@@ -1,0 +1,38 @@
+apache2 loadbalance
+
+#a2enmod proxy*
+#a2enmod lbmethod_*
+
+<VirtualHost *.80>
+    <Proxy balancer://mycluster>
+        balancerMember http://s1.skills.com/ 
+        balancerMember http://s2.skills.com/ loadfactor=3 timeout=1
+        balancerMember http://s3.skills.com/ status=+R
+        balancerMember http://s4.skills.com/ status=+H 
+        balancerMember http://s5.skills.com/ lbset=1
+
+        ProxySet lbmethod = { byrequests | bytraffic }
+    </Proxy>
+
+    ProxyPass "/" "balancer://mycluster"
+    ProxyPassReverse "/" "balancer://mycluster"
+</VirtualHost>
+
+
+<VirtualHost *.443>
+    <Proxy balancer://mycluster>
+        balancerMember https://s1.skills.com/ 
+        balancerMember https://s2.skills.com/ loadfactor=3 timeout=1
+        balancerMember https://s3.skills.com/ status=+R
+        balancerMember https://s4.skills.com/ status=+H 
+        balancerMember https://s5.skills.com/ lbset=1
+
+        ProxySet lbmethod = { byrequests | bytraffic }
+    </Proxy>
+
+    ProxyPass "/" "balancer://mycluster"
+    ProxyPassReverse "/" "balancer://mycluster"
+    
+    SSLProxyEngine on
+
+</VirtualHost>

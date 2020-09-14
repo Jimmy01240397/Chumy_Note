@@ -1,0 +1,4 @@
+HT-HQ(config)#ipv6 unicast-routing
+HT-HQ(config)#int s 0/0/0
+HT-HQ(config-if)#ipv6 rip {rip_process_name} enable
+

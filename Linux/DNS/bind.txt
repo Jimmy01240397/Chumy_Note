@@ -1,0 +1,9 @@
+zone "twnic.com.tw" { 
+	type master;
+	file "twnic.hosts";
+	allow-transfer{ 192.168.10.1; };
+	allow-notify
+	notify yes;
+	also-notify { 192.168.10.1; }; //slave server IP
+
+};

@@ -1,0 +1,31 @@
+ppp authentication 
+
+ppp authentication {chap | chap pap | pap chap | pap} 
+
+PAP
+
+R1:
+R1(config)#username R2 password R2_pwd
+R1(config)#int s 0/0/0
+R1(config-if)#encapsulation ppp
+R1(config-if)#ppp authencation pap
+R1(config-if)#ppp pap sent-username R1 password R1_pwd
+
+R2:
+R2(config)#username R1 password R1_pwd
+R2(config)#int s 0/0/0
+R2(config-if)#encapsulation ppp
+R2(config-if)#ppp authencation pap
+R2(config-if)#ppp pap sent-username R2 password R2_pwd
+
+
+chap 
+R1(config)#username R2 password same
+R1(config)#int s 0/0/0
+R1(config-if)#encapsulation ppp
+R1(config-if)#ppp authencation chap
+
+R2(config)#username R1 password same
+R2(config)#int s 0/0/0
+R2(config-if)#encapsulation ppp
+R2(config-if)#ppp authencation chap

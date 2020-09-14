@@ -1,0 +1,10 @@
+vim .bashrc 
+
+function rm(){
+	if [ "$#" -eq 2 ] && [ "$1" = "-rf" ]
+	then 
+		echo "avoid a dnagerous command..."
+	else
+		command rm "$@"
+	fi
+}

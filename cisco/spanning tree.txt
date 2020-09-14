@@ -1,0 +1,26 @@
+spanning tree 
+spt 
+
+802.1w Edge Port--> rapid-stp rstp == 802.1d forwarding state == port fast 
+
+
+Root Birdge Priority = (4096*n)+vlan_ID
+
+##cost 
+
+1G port = 4
+100M port = 19
+10M port =100
+
+##port priority default = 128
+
+SW(config-if)#spanning-tree vlan 871 port-priority 32
+
+##port type 
+
+P2p = full duplx
+shr = half duplx 
+
+shr = hub mode(lagcy mode)
+
+

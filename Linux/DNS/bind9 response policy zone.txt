@@ -1,0 +1,31 @@
+bind9 response policy zone 
+minium required bind9 version = 9.10
+
+!!!required original resourse record(RR) !!!
+
+vim /etc/bind/named.conf.local
+    zone "rpz" {
+        type master;
+        file "/etc/bind/db.rpz";
+        allow-query {none;};
+    };
+vim /etc/bind/named.conf.options 
+    dnssec-validation no;
+    response-policy {
+        zone "rpz";
+    };
+cp /etc/bind/db.empty /etc/bind/db.rpz 
+vim /etc/bind/db.rpz 
+                            IN      NS          localhost.
+    ;policy 
+    nxdomain.skills.com             CNAME       .           ;NXDOMAIN policy
+    nodata.skills.com               CNAME       *.          ;NODATA policy
+    
+    ;Redirect
+    bad.skills.com                  A           10.0.0.1
+
+    ;passthrough
+    www.skills.com                  CNAME       rpz-passthru.
+
+    ;reverse zone
+    24.0.2.0.192.rpz-ip             CNAME       rpz-passthru.

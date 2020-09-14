@@ -1,0 +1,19 @@
+Apache reverse proxy pass 
+
+#enable mod 
+1.	proxy 
+2.	proxy_html
+3.	proxy_http
+4.	proxy_http2
+
+./site-enable/xxx.conf 
+註解掉DocumentRoot 
+ProxyPass  /  http(s)://IP or domain/
+ProxyPassReverse  /  http(s)://IP or domain/
+
+(一定要最後面的斜線)
+
+https 在設定檔新增
+SSLProxyEngine On 
+SSLCACertificateFile  
+

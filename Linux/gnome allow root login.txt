@@ -1,0 +1,11 @@
+##gnome allow root login
+
+vim /etc/gdm3/daemon.conf 
+add at [security]
+"AllowRoot=true"
+
+
+vim /etc/pam.d/gdm-password 
+comment at 
+#auth required pam_succeed_if.so user != root quiet_success
+

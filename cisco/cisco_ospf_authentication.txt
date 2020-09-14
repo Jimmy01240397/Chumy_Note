@@ -1,0 +1,13 @@
+cisco ospf authentication 
+
+#at interface 
+int s 0/0/0
+ip ospf authentication message-digest 
+ip ospf message-digest-key 10 md5 Skills39
+
+#global 
+router ospf 10 
+area 10 authentication message-digest 
+
+int s 0/0/0
+ip ospf message-digest-key 10 md5 Skills39

@@ -1,0 +1,42 @@
+config sys int
+edit wan1
+config ipv6
+set ip6-mode pppoe
+set dhcp6-prefix-delegation enable
+set autoconf ena
+end
+next
+end
+
+
+
+config sys int
+edit [LAN端介面]
+config ipv6
+set ip6-mode delegated
+set ip6-send-adv enable
+set ip6-manage-flag dis
+set ip6-other ena
+set ip6-upstream-interface "wan1"
+set ip6-subnet ::1/64
+config ip6-delegated-prefix-list
+edit 1
+set upstream-interface "wan1"
+set autonomous-flag enable
+set onlink-flag enable
+set subnet ::/64
+next
+end
+end
+next
+end
+
+
+config sys dhcp6 server
+edit 1
+set interface [LAN端介面]
+set ip-mode delegated
+set dns-service def
+set upstream-int wan1
+next
+end

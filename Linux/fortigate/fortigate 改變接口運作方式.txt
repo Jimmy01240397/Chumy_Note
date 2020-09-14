@@ -1,0 +1,20 @@
+fortigate 改變接口模式
+
+#config system golbal 
+(golbal)#set internal-switch-mode switch 
+or
+(golbal)#set internal-switch-mode interface 
+(golbal)#end
+
+Changing switch mode will reboot the system!
+Do you want to continue? (y/n)y
+
+Interface internal is in use
+attribute set operator error, -23, discard the setting
+Command fail. Return code -23
+
+#diagonse sys checkused system.interface.name internal1
+
+
+
+

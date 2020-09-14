@@ -1,0 +1,8 @@
+﻿SOA 
+
+serial -> 版本號碼
+refresh -> slave 對 master 間隔(秒)refresh 
+retry -> 當 slave server 無法和 master 進行 serial check時，要每隔幾秒 retry 一次
+expire -> 過期時間
+minimum -> 代表這個 zone file 中所有 record 的內定的 TTL 值，也就是其它的 DNS server cache 這筆 record 時，最長不應該超過這個時間。
+

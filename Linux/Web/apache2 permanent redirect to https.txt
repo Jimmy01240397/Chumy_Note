@@ -1,0 +1,7 @@
+apache2 redirect to https 
+
+<VirtualHost *:80>
+	RewriteEngine on 
+	RewriteRule ^(.*)$ https://www.wsc2019.org.tw/ [R=308,L]
+						       [R=permanent,L]
+</VirtualHost>

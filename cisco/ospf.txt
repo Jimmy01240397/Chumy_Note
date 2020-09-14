@@ -1,0 +1,9 @@
+ospf note 
+
+ospf:
+dead-interval = hello-interval*4
+
+eigrp:
+dead-interval = hello-interval*3
+
+priority 0 = 不參與DR BDR 競選

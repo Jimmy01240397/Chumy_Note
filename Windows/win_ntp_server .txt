@@ -1,0 +1,21 @@
+windows ntp server 
+
+regedit.exe
+
+W32Time\config\AnnounceFlags
+REG_DWORD=5
+
+W32Time\TimeProviders\NtpServer\Enabled
+REG_DWORD=1
+
+powershell>
+
+stop-service w32time 
+start-service w32time 
+
+w32tm /query /status 
+
+at firewall open UDP123 port 
+
+
+

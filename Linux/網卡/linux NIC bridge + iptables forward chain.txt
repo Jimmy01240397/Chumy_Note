@@ -1,0 +1,53 @@
+linux NIC bridge + iptables forward chain
+
+apt-get install bridge-utils 
+
+vim /etc/network/interfaces 
+
+	allow-hotplug ens33
+	iface ens33 inet static 
+		address 0.0.0.0
+
+	allow-hotplug ens37
+	iface ens37 inet static 
+		address 0.0.0.0
+
+
+	allow-hotplug br0
+	iface br0 inet static 
+		address xxx.xxx.xxx.xxx/xx
+
+ifup ens33
+ifup ens37
+
+vim /etc/br.sh
+
+	brctl addbr br0
+	brctl addif br0 ens33
+	brctl addif br0 ens37
+
+vim /etc/crontab
+
+@reboot		root -x sh /etc/br.sh
+
+init 6 
+
+brctl show 
+
+vim /etc/sysctl.conf
+
+	net.bridge.bridge-nf-call-iptables = 1 
+	net.bridge.bridge-nf-call-ip6tables = 1 
+	net.bridge.bridge-nf-call-arptables = 1 
+
+vim /etc/modules-load.d/modules.conf
+	br_netfilter
+
+or 
+
+modprobe br_netfilter #none permanent 
+
+sysctl -p #predict 
+
+iptables -L -nvx
+

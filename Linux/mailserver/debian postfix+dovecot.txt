@@ -1,0 +1,36 @@
+debian postfix+dovecot 
+
+apt-get install postfix
+vim /etc/postfix/main.cf
+    smtpd_tls_cert_file=/etc/ssl/certs/skills.com.cer
+    smtpd_tls_key_file=/etc/ssl/private/server.key
+    smtpd_use_tls=yes
+    
+    mynetworks = 192.168.121.0/24
+    inet_interfaces = all 
+    inet_protocols = all {ipv4|ipv6|all}
+
+vim /etc/postfix/master.cf
+@uncommand
+    smtps	inet	n	-	y	-	-	smtpd
+
+	-o smtpd_tls_wrappermode=yes
+	-o smtpd_sasl_auth_enable=yes
+
+/etc/init.d/postfix restart 
+/etc/init.d/postfix reload 
+
+apt-get install dovecot-core
+apt-get install dovecot-imapd
+apt-get install dovecot-pop3d <<- if required pop3 
+
+vim /etc/dovecot/dovecot.conf 
+    protocols = imaps {imap | pop3 |imaps}
+    listen = *, ::
+vim /etc/dovecot/conf.d/10-auth.conf
+    disable_plaintext_auth = yes 
+vim /etc/dovecot/conf.d/10-ssl.conf
+    ssl = yes {yes |required}
+    ssl_cert = </etc/ssl/certs/skills.com.cer
+    ssl_key = </etc/ssl/private/server.key
+    

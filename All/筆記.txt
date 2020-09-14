@@ -1,0 +1,71 @@
+﻿vim /etc/default/grub 
+
+GRUB_CMDLINE_LINUX="net.ifnames=0 biosdevnames=0"
+
+grub-mkconfig -o /boot/grub/grub.cfg 
+
+
+
+view "internal" {
+    match-clients {
+        192.168.0.0/24;
+    };
+    zone "skills.com" {
+        type slave;
+        masters {192.168.0.100;};
+        file "/etc/bind/internal.skills.com";
+    };
+    include "/etc/bind/named.conf.default-zones";
+};
+
+view "external" {
+    match-clients {
+        any;
+    };
+    zone "skills.com" {
+        type master;
+        file "/etc/bind/db.skills.com"
+    };
+    include "/etc/bind/named.conf.default-zones";
+};
+
+<Location />
+    Authname "AD LDAP"
+    Authtype basic 
+    Authbasicprovider ldap 
+    AuthLDAPURL "ldap://skills.com/ou=IT,dc=skills,dc=com?sAMAccountName?sub?(subjectClass=*)"
+    AuthLDAPbindDN "cn=Administrator,ou=Users,dc=skills,dc=com"
+    AuthLDAPBindPassword Skills39
+    Require valid-user 
+</Location>
+
+<Location />
+    Authname "basic"
+    Authtype basic 
+    Authuserfile /var/www/html/.htpasswd
+    Require valid-user
+</Location>
+
+ldapsearch -h 192.168.0.100 -b "cn=Users,dc=skills,dc=com" -D "cn=Administrator,dc=Users,dc=skills,dc=com" -w Skills39 
+
+apt-get install task-gnome-desktop
+
+重新導向使用者容器
+
+redirusr ou=myusers,DC=company,dc=com (指定到company.com的myusers的OU)
+
+重新導向電腦容器
+
+redircmp ou=mycomputers,DC=company,dc=com
+
+
+[共享名]
+path = /home/samba
+public = yes
+writable = yes
+printable = no
+create mask = 0666
+directory mask = 0766
+hosts deny = ALL EXCEPT 172.16.0.0 172.16.1.0
+
+set-smbbandwidthlimit -Category default -BytesPerSecond 10MB

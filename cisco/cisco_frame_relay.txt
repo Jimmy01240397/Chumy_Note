@@ -1,0 +1,8 @@
+cisco frame relay 
+
+sub interface 
+
+int s 0/0/0.100 point-to-point
+	frame-relay interface-dlci 100
+	ip add xxx.xxx.xxx.xxx
+	frame-relay map ip xxx.xxx.xxx.xxx(p2p IP)

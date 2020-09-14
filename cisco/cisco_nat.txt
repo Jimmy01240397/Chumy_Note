@@ -1,0 +1,14 @@
+﻿cisco pat 
+
+##with pool 
+ip nat pool name start-ip end-ip {netmask | prefix-length}
+access-list xx permit source source-wildcard
+ip nat inside source list access-list-pool-number pool-name overload 
+
+ip nat inside
+ip nat outside 
+
+##with out pool 
+access-list xx permit souce source wild-card 
+ip nat instide souurce list xx interface-type name overload 
+

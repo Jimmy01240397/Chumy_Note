@@ -1,0 +1,137 @@
+.tar (僅打包，無壓縮)
+套件名稱：tar。
+打包：
+$ tar cvf FileName.tar DirName
+解包：
+$ tar xvf FileName.tar
+
+
+.gz
+套件名稱：gzip。
+壓縮
+$ gzip FileName
+解壓縮 1：
+$ gunzip FileName.gz
+解壓縮 2：
+$ gzip -d FileName.gz
+
+
+.tar.gz
+套件名稱：gzip。
+壓縮：
+$ tar zcvf FileName.tar.gz DirName
+解壓縮：
+$ tar zxvf FileName.tar.gz
+
+
+bz
+壓縮：unkown。
+解壓縮 1：
+$ bzip2 -d FileName.bz
+解壓縮 2：
+$ bunzip2 FileName.bz
+
+
+.tar.bz
+壓縮：unkown。
+解壓縮：
+$ tar jxvf FileName.tar.bz
+
+
+.bz2
+套件名稱：bzip2。
+壓縮：
+$ bzip2 -z FileName
+解壓縮 1：
+$ bzip2 -d FileName.bz2
+解壓縮 2：
+$ bunzip2 FileName.bz2
+
+
+.tar.bz2
+套件名稱：bzip2。
+壓縮：
+$ tar jcvf FileName.tar.bz2 DirName
+解壓縮：
+$ tar jxvf FileName.tar.bz2
+.tar.bz2 (parallel)
+套件名稱：lbzip2。
+壓縮：
+$ tar -I lbzip2 -cvf FileName.tar.bz2 DirName
+
+
+.xz
+套件名稱：xz-utils。
+壓縮：
+$ xz -z FileName
+解壓縮：
+$ xz -d FileName.xz
+
+
+.tar.xz
+套件名稱：xz-utils。
+壓縮：
+$ tar Jcvf FileName.tar.xz DirName
+解壓縮：
+$ tar Jxvf FileName.tar.xz
+
+
+.Z
+壓縮：
+$ compress FileName
+解壓縮：
+$ uncompress FileName.Z
+
+.tar.Z
+壓縮：
+$ tar Zcvf FileName.tar.Z DirName
+解壓縮：
+$ tar Zxvf FileName.tar.Z
+
+.tgz
+套件名稱：gzip。
+壓縮：
+$ tar zcvf FileName.tgz FileName
+解壓縮：
+$ tar zxvf FileName.tgz
+
+.tar.tgz
+套件名稱：gzip。
+壓縮：
+$ tar zcvf FileName.tar.tgz FileName
+解壓縮：
+$ tar zxvf FileName.tar.tgz
+
+.7z
+套件名稱：p7zip-full。
+壓縮：
+$ 7z a FileName.7z FileName
+使用密碼 (PASSWORD) 壓縮：
+$ 7z a FileName.7z FileName -pPASSWORD
+解壓縮：
+$ 7z x FileName.7z
+
+.zip
+套件名稱：zip。
+壓縮：
+$ zip -r FileName.zip DirName
+解壓縮：
+$ unzip FileName.zip
+
+.rar
+套件名稱：rar, unrar。
+壓縮：
+$ rar a FileName.rar DirName
+解壓縮 1：
+$ rar e FileName.rar
+解壓縮 2：
+$ unrar e FileName.rar
+解壓縮 3：在指定目錄內解壓縮。
+$ rar x FileName.rar DirName
+
+.lha
+套件名稱：lha。
+壓縮：
+$ lha -a FileName.lha FileName
+解壓縮：
+$ lha -e FileName.lha

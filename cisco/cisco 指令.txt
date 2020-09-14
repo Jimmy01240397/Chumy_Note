@@ -1,0 +1,87 @@
+#clean config 
+write erase 
+#save 
+wr
+
+
+#PPPOE 
+
+interface dialer1 
+    encapsulation ppp 
+    ip address negotiated 
+
+    ppp chap hostname xxxx
+    ppp chap password xxxx
+
+    dialer pool 1 
+    no shut 
+
+int g0/1
+    no ip add 
+    pppoe enable 
+    pppoe-client dial-pool-number 1 
+    no shut 
+
+#GRE tunnel 
+
+interface Tunnel 0 
+    tunnel mode gre ip 
+    ip address 192.168.2.1 255.255.255.0 
+    tunnel source 209.165.201.1
+    tunnel destination 198.133.219.87
+  
+#ssh config 
+
+hostname xxxx
+ip domain-name xxx 
+crypto key gen rsa 
+
+username dino privilege 15 password Skills39
+
+line vty 0 15 
+    login local 
+    transport input ssh 
+
+#bpdu error-disable auto reset 
+
+show errdisable recovery 
+
+errdisable recovery cause bpduguard 
+errdisable recovery interval 
+<30-86400> (sec)
+
+~if error-disable cause "udld"~
+udld reset 
+
+
+
+
+#NAT 
+
+access-list 1 permit 192.168.101.0 0.0.0.255
+ip nat inside source list 1 interface Dialer1 overload 
+
+(at interface)
+
+ip nat inside 
+ip nat outside 
+
+#open port 
+ip nat inside source static tcp 192.168.101.100 80 interface Dialer1 80
+
+#DHCP
+
+ip dhcp pool name
+    network 192.168.12.0 255.255.255.0
+    default-router 192.168.12.1
+    dns-server 192.168.12.101
+    lease 7 //租用7天
+
+ip dhcp excluded-adddress 192.168.12.1
+
+#DHCP relay
+
+(interface)
+
+ip helper-address 192.168.12.1
+

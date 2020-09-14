@@ -1,0 +1,12 @@
+﻿switch port port-security 
+
+protect : 把不法host 的 frame Drop 掉不傳送
+
+restrict : 把不法host 的 frame Drop 掉不傳送,並在log 紀錄
+
+shutdown : port err-disable (default)
+
+##error disable auto recovery
+
+sw(config)#errdisable recovery cause psecure-violation
+sw(config)#errdisable recovery interval 600(s)

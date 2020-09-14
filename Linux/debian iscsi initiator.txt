@@ -1,0 +1,15 @@
+debian iscsi initiator
+
+apt-get install tgt
+
+#create disk img 
+
+dd if=/dev/zero of=/var/lib/iscsi_disks/disk01.img count=0 bs=1 seek=10G
+
+vim /etc/tgt/conf.d/target01.conf
+
+<target iqn.2019-08.tw.skills:target01>
+    backing-store /var/lib/iscsi_disks/disk01.img
+    initiator-address 10.0.0.1
+    incominguser wsc2019 Skills391234
+</target>

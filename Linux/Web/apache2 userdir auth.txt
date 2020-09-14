@@ -1,0 +1,10 @@
+apache2 userdir authencation 
+<IfModule mod_userdir.c>
+
+	<Location ~ "/~.*">
+	    Authname "basic"
+	    Authtype basic 
+	    Authuserfile /var/www/html/.htpasswd
+	    Require valid-user
+	</Location>
+</IFModule>

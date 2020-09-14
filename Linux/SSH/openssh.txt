@@ -1,0 +1,31 @@
+ssh config 
+
+Match {host | address | users | group}
+	PasswordAuthentication yes 
+	PubkeyAuthentication yes 
+Match all
+
+##allow root password login 
+
+PermitRootLogin yes 
+
+##Allowuser 
+
+AllowUsers xxx
+
+##permit root both password & password login 
+
+match user root
+	PermitRootLogin yes
+	Authenticationmethods "publickey,password" "publickey,keyboard-interactive"
+match all
+
+
+##一般化方式驗證(使用者嘗試登入時， 由後端的驗證模組直接認證登入資訊，而非透過 SSH Server) 
+PasswordAuthentication no
+ChallengeResponseAuthentication yes
+
+#檢查方式
+ssh -o PreferredAuthentications=password dino@192.168.21.82
+會顯示
+dino@192.168.21.82: Permission denied (publickey,keyboard-interactive).

@@ -1,0 +1,10 @@
+linux 更改網卡名稱
+
+apt-get install net-tools 
+vim /etc/mactab 
+
+xxxxxx mac_address 
+
+nameif 
+
+nameif en0 d6:c0:89:da:a0:17

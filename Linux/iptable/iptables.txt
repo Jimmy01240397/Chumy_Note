@@ -1,0 +1,92 @@
+﻿1.查看規則 (-L)
+iptables -L
+iptables -L -n
+iptables -L -n --line-number
+iptables -L -v
+
+2.修改大規則 (-P)
+iptables -P INPUT DROP
+            OUTPUT ACCEPT
+
+3.追加規則 (-A)
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+iptables -A INPUT -i eth0 -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -I INPUT (numbers)
+
+4.刪除規則 (-D)
+iptables -D INPUT 3
+iptables -D INPUT -s 192.168.0.1 -j DROP
+
+5.修改規則 (-R)
+iptables -R INPUT 3 -s 192.168.0.1 -j ACCEPT
+
+6.清空規則 (-F)
+iptables -F
+iptables -F INPUT
+iptables -t nat -F
+
+7.NAT
+echo "1" > /proc/sys/net/ipv4/ip_forward
+or vim /etc/sysctl.conf (net.ipv4.ip_forward=1)
+
+iptables -t nat -A POSTROUTING -o ens33 -j MASQUERADE
+
+NAT轉址
+我想讓外面的人透過port 222連到我內部內網的port 192.168.2.1這台server的port 22，來進行ssh
+
+iptables -t nat -A PREROUTING  -d x.x.x.x(outside_IP) -p tcp --dport 222  -j DNAT --to-destination 192.168.2.1:22
+
+
+iptables -t nat -A PREROUTING -i eth1 -p tcp --dport 22239 -j DNAT --to 192.168.2.1:22
+
+
+## Change destination addresses to 5.6.7.8
+# iptables -t nat -A PREROUTING -i eth1 -j DNAT --to 5.6.7.8
+
+## Change destination addresses to 5.6.7.8, 5.6.7.9 or 5.6.7.10.
+# iptables -t nat -A PREROUTING -i eth1 -j DNAT --to 5.6.7.8-5.6.7.10
+
+## Change destination addresses of web traffic to 5.6.7.8, port 8080.
+# iptables -t nat -A PREROUTING -p tcp --dport 80 -i eth1 \
+        -j DNAT --to 5.6.7.8:8080
+
+## Redirect local packets to 1.2.3.4 to loopback.
+# iptables -t nat -A OUTPUT -d 1.2.3.4 -j DNAT --to 127.0.0.1
+
+8.開機自動載入iptables
+apt-get install iptables-persistent
+每次設定完iptables 回存
+iptables-save > /etc/iptables/rules.v4(ipv4)
+iptables-save > /etc/iptables/rules.v6(ipv6)
+
+9.iptables DNS 代理轉址
+iptables -t nat -I PREROUTING -i eth1 -p tcp --dport 53 -j DNAT --to <your_IPv4_DNS_IP>
+iptables -t nat -I PREROUTING -i eth1 -p udp --dport 53 -j DNAT --to <your_IPv4_DNS_IP>
+#dns internal forward 
+iptables -A FORWARD -p udp -s 192.168.50.0/24 -d 192.168.50.1 --dport 53 -j ACCEPT
+iptables -A FORWARD -p tcp -s 192.168.50.0/24 -d 192.168.50.1 --dport 53 -j ACCEPT
+iptables -A FORWARD -m state --state ESTABLISHED -j ACCEPT
+//iptables -A FORWARD -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+#
+iptables -A FORWARD -p udp -s 192.168.50.0/24 -d 192.168.50.1 --dport 53 -j ACCEPT
+iptables -A FORWARD -s 192.168.50.1 -d 192.168.50.0/24 -m state --state ESTABLISHED -j ACCEPT
+iptables -t nat -I PREROUTING -s 192.168.50.0/24 -d 192.168.50.254 -p tcp --dport 53 -j DNAT --to 192.168.50.1:53
+iptables -t nat -I POSTROUTING -j MASQUERADE
+
+SNAT用来修改源IP地址，而DNAT用来修改目标IP地址、目标端口；SNAT只能用在nat表的POSTROUTING链，而DNAT只能用在nat表的PREROUTING链和OUTPUT链
+10.state 
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+11.limit 
+iptables -A INPUT -p icmp -m limit --limit 1/s --limit-brust 1 -j ACCEPT
+
+<<<<<<< HEAD
+12.mulitport
+iptables -A INPUT -i eth0 -p tcp -m multiport --dports 22,80,443 -m state --state NEW,ESTABLISHED -j ACCEPT
+=======
+
+
+>>>>>>> 49a181b82d080f19bd47910f1986649ae820f7ab

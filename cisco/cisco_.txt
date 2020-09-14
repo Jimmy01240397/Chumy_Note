@@ -1,0 +1,2 @@
+ip default route = L3 routing 
+ip default gateway = L2 env

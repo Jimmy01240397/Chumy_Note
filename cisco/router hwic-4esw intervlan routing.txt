@@ -1,0 +1,15 @@
+router hwic-4esw intervlan routing 
+
+##create vlan 
+
+¦bprivilege exec mode
+
+vlan database
+	vlan xx name AAAAAAAAAA
+	 
+
+##at config mode
+
+int vlan xx 
+	ip add xxx.xxx.xxx.xxx xxx.xxx.xxx.xxx
+ 

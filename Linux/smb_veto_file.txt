@@ -1,0 +1,11 @@
+﻿samba 
+
+[share]
+	comment = share 
+	writeable = yes 
+	path = /share
+	valid user = Administrator
+	host allow = xxx.xxx.xxx.xxx
+	write list = root, @users 
+
+	veto files = /*.pif/*.lnk/*.exe/*.eml/*.bat/*.nws/*.vbs <---禁止此副檔名之檔案

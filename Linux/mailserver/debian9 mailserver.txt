@@ -1,0 +1,53 @@
+postfix+dovecot sasl authentication 
+
+apt-get install postfix 
+vim /etc/postfix/main.cf
+	smtpd_tls_cert_file=/etc/ssl/certs/mail.skills.tw.cer
+	smtpd_tls_cert_key_file=/etc/ssl/private/server.key
+	smtpd_use_tls = yes
+	mynetworks = 192.168.121.0/24
+    	inet_interfaces = all 
+    	inet_protocols = all {ipv4|ipv6|all}
+
+	smtpd_sasl_auth_enable = yes
+	broken_sasl_auth_clients = yes
+	smtpd_sasl_type = dovecot
+	smtpd_sasl_path = private/auth
+	smtpd_sasl_security_options = noanonymous
+
+vim /etc/postfix/master.cf
+	smtps	inet n  -  y - - smtpd 
+		-o syslog_name=postfix/smtps
+		-o smtpd_tls_wrappermode=yes
+		-o smtpd_sasl_auth_enable=yes
+
+apt-get install sasl2-bin
+vim /etc/default/saslauthd
+	START = yes
+
+apt-get install dovecot
+vim /etc/dovecot/conf.d/10-auth.conf
+	disable_plaintext_auth = yes
+
+vim /etc/dovecot/conf.d/10-master.conf
+#at 96 line 
+
+	unix_listener /var/spool/postfix/private/auth{
+		mode = 0666
+		group = postfix
+		user = postfix
+	}
+	user = root
+
+vim /etc/dovecot/conf.d/10-ssl.conf
+	ssl = yes
+	ssl_cert = </etc/ssl/certs/mail.skills.tw
+	ssl_key = </etc/ssl/private/server.key
+	
+	#at 50 line 
+	ssl_protocols = TLSv1.2 TLSv1.1 !SSLv3
+	ssl_cipher_list = ALL:!LOW:!SSLv2:!EXP:!aNULL
+
+useradd user001 -m -G mail
+useradd user002 -m -G mail 
+passwd 

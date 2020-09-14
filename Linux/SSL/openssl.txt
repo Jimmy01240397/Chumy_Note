@@ -1,0 +1,28 @@
+﻿1.Root CA
+root@dino:# openssl genrsa -des3 -out RootCA.key 2048 //gen ca Key
+root@dino:# openssl req -new -key RootCA.key -out RootCA.req //產生申請檔
+root@dino:# openssl x509 -req -days 3650 -sha256 -extensions v3_ca -signkey RootCA.key -in RootCA.req -out RootCA.crt //自己簽出rootCA
+
+2.server Cert
+root@dino:# openssl genrsa -out Servercert.key 2048 //server Key
+root@dino:# openssl req -new -key Servercert.key -out Servercert.req //產生server申請檔
+root@dino:# openssl x509 -req -days 1095 -sha256 -extensions v3_req -CA RootCA.crt -CAkey RootCA.key -CAcreateserial -in ServerCert.req -out ServerCert.crt
+root@dino:# openssl x509 -req -days 1095 -sha256 -extensions v3_req -CA RootCA.crt -CAkey RootCA.key -CAserial RootCA.srl -in ServerCert.req -out ServerCert.crt
+
+
+##pfx金鑰拆解&整合憑證
+
+(私鑰有加密)加上-nodes 轉換無加密私鑰
+
+root@dino:# openssl pkcs12 -in xxx.pfx -out xxx.pem 
+//純粹轉換pfx 檔案(含cert&private key) 
+
+root@dino:# openssl pkcs12 -in xxx.pfx -out xxx.key -nocerts 
+//無憑證純私鑰版本
+
+root@dino:# openssl pkcs12 -in xxx.pfx -out xxx.cer -nokeys
+//無私鑰純憑證版本
+
+root@dino:# openssl pkcs12 -name "My Certificate" -export -in xxx.cer -inkey xxx.key certfile rootca.cer -out xxx.pfx
+//整合rootCA&cert+key成.p12 or .pfx
+

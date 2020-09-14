@@ -1,0 +1,40 @@
+#dyndns with dhcpd
+
+rndc-confgen -a ##generate rndckey
+
+vim /etc/bind/named.conf.local
+
+include "/etc/bind/rndc.key";
+zone "skill39.net"{
+	type master;
+	file "/etc/bind/db.skill39.net";
+	allow-update {key rndc-key;};
+};
+zone "1.168.192.in-addr.arpa"{
+	type master;
+	file "/etc/bind/db.1.168.192";
+	allow-update {key rndc-key;};
+};
+
+
+chmod g+w /etc/bind/
+chown bind:bind db.skill39.net 
+vim /etc/apparmor.d/usr.sbin.named
+
+/etc/bind/** rw,
+
+cp /etc/bind/rndc.key /etc/dhcp/rndc.key
+vim /etc/dhcp/dhcpd.conf
+
+include "/etc/dhcp/rndc.key";
+ddns-update-style standard;
+ddns-updates on;
+
+zone skill39.net.{
+	primary 127.0.0.1;
+	key rndc-key;
+}
+zone 1.168.192.in-addr.arpa.{
+	primary 127.0.0.1;
+	key rndc-key;
+}

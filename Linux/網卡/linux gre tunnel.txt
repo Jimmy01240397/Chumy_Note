@@ -1,0 +1,13 @@
+linux gre tunnel 
+
+#host A
+
+ip tunnel add A_to_B mode gre local local__outside_ip remote remote_outside_ip ttl 255 
+iplink set A_to_B up 
+ip addr add 10.0.0.1 peer 10.0.0.2 dev add A_to_B
+
+#host B
+
+ip tunnel add B_to_A mode gre local local__outside_ip remote remote_outside_ip ttl 255 
+iplink set B_to_A up 
+ip addr add 10.0.0.2 peer 10.0.0.1 dev add B_to_A

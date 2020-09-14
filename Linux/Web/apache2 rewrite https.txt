@@ -1,0 +1,11 @@
+a2enmod rewrite 
+
+
+RewirteEngine on
+Redirect / https://www.yourdomain.com
+
+
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^skills.com$
+RewriteRule ^(.*)$ https://www.skills.com/ [R=308]
