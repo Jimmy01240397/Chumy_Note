@@ -1,0 +1,16 @@
+#ansible
+apt-get install ansible
+vim /etc/ansible/hosts
+
+[web]
+web1 
+web2
+
+vim test4me.yaml
+---
+- hosts: web
+  tasks:
+			- name: nginx install
+			  apt:
+				name: nginx
+				state: latest

@@ -1,0 +1,29 @@
+apt-get install radvd
+
+
+vi /etc/radvd.conf => 去usr/share/doc找
+interface ens33 (這改)
+{
+        AdvSendAdvert on;
+
+        MinRtrAdvInterval 3;
+        MaxRtrAdvInterval 10;
+
+        AdvDefaultPreference low;
+
+        AdvHomeAgentFlag off;
+
+        prefix 2001:AAAA::/64  (這改)
+        {
+                AdvOnLink on;
+                AdvAutonomous on;
+                AdvRouterAddr off;
+        };
+
+        RDNSS 2001:AAAA::1 (這改)
+        {
+                AdvRDNSSLifetime 30;
+        };
+};
+
+systemctl start radvd.service

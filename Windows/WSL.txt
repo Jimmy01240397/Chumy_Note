@@ -5,3 +5,12 @@ Linux Reset:
 更換預設使用者:
 debian config --default-user 使用者名稱
 
+
+apt update 上 cd
+
+mount.drvfs D: /mnt/d
+
+vi /etc/apt/source.list:
+	deb [trusted=true] file:///mnt/d buster main
+
+apt-get update
