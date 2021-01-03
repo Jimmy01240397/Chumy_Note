@@ -1,0 +1,19 @@
+git add *
+
+git commit -m "data"
+
+git remote add origin [remote server]
+
+git push -u origin master
+
+git pull origin master
+
+git --no-pager log --graph
+
+git lfs install
+
+git lfs track "*.apk"
+
+git push -f origin 版本SHA:master
+
+git reset --soft 版本SHA
