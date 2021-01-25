@@ -11,6 +11,15 @@ AIA設定:
 看需要把CRT檔改名
 
 
+更改申請憑證的預設有效期限:
+certutil -f -setreg CA\ValidityPeriodUnits 3
+或
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\CertSvc\Configuration\{CAName}\ValidityPeriodUnits
+
+更改申請憑證的預設有效期限單位:
+certutil -f -setreg CA\ValidityPeriod Years
+或
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\CertSvc\Configuration\{CAName}\ValidityPeriod
 
 檢查:
 certutil -f -urlfetch -verify 憑證位置
