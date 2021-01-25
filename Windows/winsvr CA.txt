@@ -21,5 +21,9 @@ certutil -f -setreg CA\ValidityPeriod Years
 或
 HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\CertSvc\Configuration\{CAName}\ValidityPeriod
 
+用CMD提交憑證要求:
+certreq -attrib "CertificateTemplate:{TemplateName}"
+
+
 檢查:
 certutil -f -urlfetch -verify 憑證位置
