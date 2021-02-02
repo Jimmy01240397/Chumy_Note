@@ -1,0 +1,5 @@
+查zone
+curl -X GET "https://api.cloudflare.com/client/v4/zones/{zone id}/dns_records" -H "X-Auth-Email: {email}" -H "X-Auth-Key: {X-Auth-Key}" -H "Content-Type: application/json"
+
+push ip and hostname
+curl -X PUT "https://api.cloudflare.com/client/v4/zones/{zone id}/dns_records/{record id}" -H "X-Auth-Email: {email}" -H "X-Auth-Key: {X-Auth-Key}" -H "Content-Type: application/json" --data '{"type":"{type}","name":"{hostname}","content":"'{IP}'","ttl":1,"proxied":false}'
