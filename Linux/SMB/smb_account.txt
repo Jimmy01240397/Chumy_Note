@@ -1,0 +1,16 @@
+(建使用者) jimmy 密碼
+smbpasswd -a jimmy
+=> 密碼
+
+mkdir /NAS
+chmod -R 755 /NAS
+
+[Jimmy]
+   path = /NAS/jimmy
+   browseable = yes
+   public = yes
+   read only = no
+   force create mask = 0755
+   force directory mask = 0755
+   force user = jimmy
+   valid user = jimmy

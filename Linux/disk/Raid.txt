@@ -1,0 +1,15 @@
+fdisk /dev/sd[b-f]1 => 
+	n (1)
+	t (29 = Linux Raid)
+	w
+
+
+mdadm -E /dev/sd[b-f]1
+
+mdadm --create /dev/md0 --level=6 --raid-devices=5 /dev/sd[b-f]1
+
+
+
+mdadm --stop /dev/md0
+
+mdadm --zero-superblock /dev/sd[b-f]1

@@ -1,0 +1,9 @@
+speed =>  hdparm -t /dev/sda
+
+info =>
+	lsblk -o NAME,MODEL,SERIAL,WWN,HCTL
+
+	blkid /dev/sdf
+
+
+smart => smartctl -A /dev/sdf

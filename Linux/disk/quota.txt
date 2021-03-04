@@ -1,0 +1,49 @@
+quota 可以作用的功能有很多，包括了：
+　
+限制某一群組所能使用的最大磁碟配額（使用 群組 限制）：你可以將你的主機上的使用者分門別類，有點像是目前很流行的付費與免付費會員制的情況，你比較喜好的那一群的使用配額就可以給高一些！呵呵！ ^_^...
+　
+限制某一使用者的最大磁碟配額（使用 使用者 限制）：在限制了群組之後，您也可以再繼續針對個人來進行限制，使得同一群組之下還可以有更公平的分配！
+　
+以 Link 的方式，來使服務可以作為限制的配額(如：smb,mail,ftp)：如果是分為付費與免付費會員，是否需要重新再規劃一個硬碟呢？也不需要啦！直接使用 Link 的方式指向 /home （或者其他已經做好的 quota 磁碟）就可以啦！
+
+
+
+
+
+
+改 /etc/fstab
+
+UUID="硬碟"  mount位置  ext4 defaults,usrquota,grpquota       1 1   (加usrquota,grpquota)
+
+remount
+
+groupadd share
+
+useradd user1 -g share
+
+quotacheck -cumg mount位置
+
+
+shell命令創建
+
+setquota -u user1  102400  102400  0  0  /sdc
+
+	軟限制容量50M，硬限制100M
+
+	edquota創建（類似vi）
+
+edquota -u user1
+
+Disk quotas for user user1 (uid 500):
+
+  Filesystem                   blocks       soft       hard     inodes     soft     hard
+
+  硬碟                          0       102400      102400          0      0	       0
+
+
+(複製) edquota -p test test2
+(寬限時間) edquota -t
+
+(啟動) quotaon -avug
+
+(查狀態) quota –vu user1
