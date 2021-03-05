@@ -3,7 +3,7 @@ vim /etc/apache2/mods-available/ratelimit.conf :
 	<IfModule mod_ratelimit.c>
 		<Directory /path/to/your/directory>
     			SetOutputFilter RATE_LIMIT
-    			SetEnv rate-limit ¼Æ¦r(³æ¦ìKB/S)
+    			SetEnv rate-limit æ•¸å­—(å–®ä½KB/S)
 		</Directory>
 	</IfModule>
 }

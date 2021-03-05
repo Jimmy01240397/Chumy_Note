@@ -1,13 +1,13 @@
 a2enmod proxy_http
 
-ProxyPass /╪пер http://╨Т╖}
-ProxyPassReverse /╪пер http://╨Т╖}
+ProxyPass /Ф╗≥Г╠╓ http://Г╤╡Е²─
+ProxyPassReverse /Ф╗≥Г╠╓ http://Г╤╡Е²─
 
-ProxyPassMatch ╔©ЁW╙М╧F╕║ http://╨Т╖}
+ProxyPassMatch Ф╜ёХ╕▐Х║╗И│■Е╪▐ http://Г╤╡Е²─
 
 ProxyPreserveHost on
 
-SSL╓о╕V╔N╡z:
+SSLЕ▐█Е░▒Д╩ёГ░├:
 
 SSLEngine on
 SSLProxyEngine on
