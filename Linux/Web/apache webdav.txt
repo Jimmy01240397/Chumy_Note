@@ -1,0 +1,14 @@
+a2enmod dav*
+
+htdigest /etc/apache2/user.password jimmy
+
+<Directory /NAS/jimmy>
+	Options FollowSymLinks
+	AllowOverride None
+	DAV on
+	AuthType Digest
+	AuthName "webdav"
+#	AuthDigestProvider file
+	AuthUserFile /etc/apache2/user.password
+	Require user jimmy
+</Directory>

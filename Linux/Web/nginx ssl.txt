@@ -1,0 +1,17 @@
+# add to the end
+# replace the path of certificates to your own one
+server {
+        listen 443 ssl default_server;
+        listen [::]:443 ssl default_server;
+
+        ssl_prefer_server_ciphers  on;
+        ssl_ciphers  'ECDH !aNULL !eNULL !SSLv2 !SSLv3';
+        ssl_certificate  /etc/letsencrypt/live/www.srv.world/fullchain.pem;
+        ssl_certificate_key  /etc/letsencrypt/live/www.srv.world/privkey.pem;
+
+        root /var/www/html;
+        server_name www.srv.world;
+        location / {
+                try_files $uri $uri/ =404;
+        }
+}

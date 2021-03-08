@@ -1,0 +1,47 @@
+proxy pass:
+
+server {
+        listen      80 default_server;
+        listen      [::]:80 default_server;
+        server_name www.srv.world;
+
+        proxy_redirect           off;
+        proxy_set_header         X-Real-IP $remote_addr;
+        proxy_set_header         X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header         Host $http_host;
+
+        location / {
+            proxy_pass http://dlp.srv.world/;
+        }
+    }
+
+load balancing:
+
+
+root@www:~# vi /etc/nginx/nginx.conf
+# add into [http] section
+# [backup] means this server is balanced only when other servers are down
+# [weight=*] means balancing weight
+http {
+        upstream backends {
+                server node01.srv.world:80 weight=2;
+                server node02.srv.world:80;
+                server node03.srv.world:80 backup;
+        }
+
+root@www:~# vi /etc/nginx/sites-available/default
+# change like follows in [server] section
+server {
+        listen      80 default_server;
+        listen      [::]:80 default_server;
+        server_name www.srv.world;
+
+        proxy_redirect          off;
+        proxy_set_header        X-Real-IP $remote_addr;
+        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header        Host $http_host;
+
+        location / {
+                proxy_pass http://backends;
+        }
+}

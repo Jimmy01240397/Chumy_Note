@@ -1,0 +1,16 @@
+htpasswd /etc/nginx/users.password username
+
+
+server {
+  listen <port>;
+
+  # Add index.php to the list if you are using PHP
+  index index.html index.htm index.nginx-debian.html;
+
+  location / { 
+    root 網頁目錄;
+
+    auth_basic "basic auth";
+    auth_basic_user_file /etc/nginx/users.password;
+  }
+}
