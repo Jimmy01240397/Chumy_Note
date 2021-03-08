@@ -5,12 +5,16 @@ smbpasswd -a jimmy
 mkdir /NAS
 chmod -R 755 /NAS
 
+[global]
+   min protocol = SMB2
+
 [Jimmy]
    path = /NAS/jimmy
+   security = user
    browseable = yes
-   public = yes
    read only = no
-   force create mask = 0755
-   force directory mask = 0755
+   guest ok = no
+   create mask = 0755
+   directory mask = 0755
    force user = jimmy
-   valid user = jimmy
+   valid users = jimmy
