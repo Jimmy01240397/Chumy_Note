@@ -1,0 +1,18 @@
+apt-get install btrfs-progs
+
+fstransform --force-untested-file-systems /dev/md127 btrfs
+or
+mkfs-btrfs /deb/md127
+
+btrfs subvolume create /NAS/jimmy
+
+btrfs qgroup limit 1T /NAS/jimmy/
+btrfs qgroup limit -e 1T /NAS/jimmy/
+
+UUID=19439ccc-9750-47b1-8ec8-48b7bd11c7b3       /home/jimmy/jimmy       btrfs   subvol=jimmy    0       1
+
+
+
+
+btrfs subvolume delete /NAS/jimmy
+btrfs qgroup destroy 0/577 /NAS

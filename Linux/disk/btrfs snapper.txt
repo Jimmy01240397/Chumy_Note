@@ -1,0 +1,12 @@
+snapper -c jimmy create-config /NAS/jimmy
+
+snapper -c jimmy list
+
+snapper -c jimmy create -d test
+
+snapper -c jimmy create -d test2
+
+snapper -c jimmy undochange 0..2
+
+snapper -c jimmy delete 1
+
