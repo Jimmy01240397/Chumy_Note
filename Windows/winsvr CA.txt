@@ -26,4 +26,4 @@ certreq -attrib "CertificateTemplate:{TemplateName}"
 
 
 檢查:
-certutil -f -urlfetch -verify 憑證位置
+certutil -f -verify -urlfetch 憑證位置
