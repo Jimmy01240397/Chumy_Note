@@ -1,0 +1,16 @@
+- hosts: hostname
+  tasks:
+          - name: get ip
+            command: curl ifconfig.me
+            register: myip
+
+          - name: updata ddns
+            uri:
+                    method: PUT
+                    url: "https://api.cloudflare.com/client/v4/zones/{zone id}/dns_records/{record id}"
+                    headers:
+                            X-Auth-Email: {email}
+                            X-Auth-Key: {X-Auth-Key}
+                            Content-Type: application/json
+                    body: "{ \"type\":\"A\",\"name\":\"{hostname}\",\"content\":\"{{ myip.stdout }}\",\"ttl\":1,\"proxied\":false }"
+                    body_format: json
