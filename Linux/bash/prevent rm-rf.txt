@@ -1,10 +1,28 @@
 vim .bashrc 
 
+splitinspace()
+{
+	cont=1
+	num=$1
+	shift
+	for a in $(echo $@)
+	do
+		if [ "$cont" -eq $num ]
+		then
+			echo $a
+		fi
+		cont=$(($cont+1))
+	done
+}
+
 function rm(){
-	if [ "$#" -eq 2 ] && [ "$1" = "-rf" ]
-	then 
+	if [ "$#" -ge 1 ] && [ "$1" = "-rf" ]
+	then
 		echo "avoid a dnagerous command..."
-	else
-		command rm "$@"
-	fi
+	elif [ "`splitinspace $# $@`" = "etc" ]  || [ "`splitinspace $# $@`" = "etc/" ] || [ "`splitinspace $# $@`" = "/etc" ] || [ "`splitinspace $# $@`" = "/etc/" ]
+	then
+		echo "avoid a dnagerous command..."
+        else
+                command rm "$@"
+        fi
 }

@@ -7,15 +7,19 @@ logging()
 		allline=`grep "$2" /var/log/kern.log`
 		nowline=`tail -n 1 "$1"`
 		cont=1
-		while [ "`echo "$allline" | tac | sed -n ${cont}p`" != "$nowline" ]
-		do
-			(( cont++ ))
-		done
-		(( cont-- ))
-		for a in $(seq $cont -1 1)
-		do
-			echo "$allline" | tac | sed -n ${a}p >> "$1"
-		done
+		nowcont=`wc -l < "$1"`
+		maxcont=`grep "$2" /var/log/kern.log | wc -l`
+
+		if [ "$(($maxcont - $nowcont))" -lt 0 ] 
+		then
+			grep "$2" /var/log/kern.log > "$1"
+			#echo dead
+		else
+			for a in $(seq $(($maxcont - $nowcont)) -1 1)
+			do
+				echo "$allline" | tac | sed -n ${a}p >> "$1"
+			done
+		fi
 	else
 		grep "$2" /var/log/kern.log > "$1"
 	fi

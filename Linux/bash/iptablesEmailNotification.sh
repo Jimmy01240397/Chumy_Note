@@ -9,11 +9,17 @@ while :
 do
 	allline="`cat /var/log/iptables`"
 	cont=1
-	while [ "`echo "$allline" | tac | sed -n ${cont}p`" != "$data" ]
+
+	maxcont="`echo "$allline" | wc -l`"
+
+	while [ "`echo "$allline" | tac | sed -n ${cont}p`" != "$data" ] && [ "$cont" -le $maxcont ]
 	do
 		(( cont++ ))
 	done
 	(( cont-- ))
+	
+#	echo $cont
+
 	for a in $(seq $cont -1 1)
 	do
 		nowdata=`echo "$allline" | tac | sed -n ${a}p`
@@ -30,7 +36,8 @@ do
 			else
 				service="$service($port/$pro) service"
 			fi
-			echo "The $service has been ACCEPT from ip=$src" | su jimmygw -c "mail -s \"iptables notification\" <email>"
+			echo "The $service has been ACCEPT from ip=$src"
+			echo "The $service has been ACCEPT from ip=$src" | su jimmygw -c "mail -s \"iptables notification\" jimmy012403976@gmail.com"
 			count=1
 			#echo send
 		fi
