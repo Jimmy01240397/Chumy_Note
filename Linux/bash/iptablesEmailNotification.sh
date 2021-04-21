@@ -1,5 +1,13 @@
 #!/bin/bash
 
+splitinspace()
+{
+	for a in $(cat $1)
+	do
+		echo $a
+	done
+}
+
 data=`tail -n 1 /var/log/iptables`
 bfsrc=""
 bfpro=""
@@ -23,9 +31,9 @@ do
 	for a in $(seq $cont -1 1)
 	do
 		nowdata=`echo "$allline" | tac | sed -n ${a}p`
-		src=`echo $nowdata | awk '{print $14}' | cut -c 5-`
-		pro=`echo $nowdata | awk '{print $22}' | cut -c 7-`
-		port=`echo $nowdata | awk '{print $24}' | cut -c 5-`
+		src=`echo $nowdata | splitinspace | grep SRC | cut -c 5-`
+		pro=`echo $nowdata | splitinspace | grep PROTO | cut -c 7-`
+		port=`echo $nowdata | splitinspace | grep DPT | cut -c 5-`
 		if [ "$bfsrc" != "$src" ] || [ "$bfpro" != "$pro" ] || [ "$bfport" != "$port" ]
 		then
 			service=`grep -i "	$port/$pro" /etc/myserviceslist | awk '{print $1}'`

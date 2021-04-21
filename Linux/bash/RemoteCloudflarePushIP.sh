@@ -1,5 +1,13 @@
 #!/bin/bash
 
+splitinspace()
+{
+	for a in $(cat $1)
+	do
+		echo $a
+	done
+}
+
 nowline=`tail -n 1 /var/log/getncutiplog`
 while :
 do
@@ -21,7 +29,7 @@ do
 	for a in $(seq $cont -1 1)
 	do
 		nowline=`echo "$allline" | tac | sed -n ${a}p`
-		myip=`echo "$nowline" | awk '{print $13}' | cut -c 5-`
+		myip=`echo "$nowline" | splitinspace | grep SRC | cut -c 5-`
 		echo "update ncut ip:$myip"
 		curl -X PUT 
 	done
