@@ -1,0 +1,12 @@
+[Unit]
+Description=start updateiptablelog
+
+[Service]
+Type=oneshot
+ExecStart=啟動服務時執行
+ExecReload=Reload服務時執行
+ExecStop=關閉服務時執行
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

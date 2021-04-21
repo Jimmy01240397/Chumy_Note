@@ -1,0 +1,14 @@
+[Unit]
+
+(設定順序)Before=某.service或.target
+(設定順序)After=某.service或.target
+
+Description=start updateiptablelog
+
+[Service]
+Type=simple
+ExecStart=/etc/network/updateiptablelog.sh
+
+
+[Install]
+WantedBy=multi-user.target

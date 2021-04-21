@@ -5,5 +5,5 @@ vim /etc/ssl/openssl.cnf :
 	[ v3_req ]
 	subjectAltName = @alt_names
 	[alt_names]
-	DNS.n(�Ʀr) = DomainName(FQDN)
+	DNS.n(數字) = DomainName(FQDN)
 }
