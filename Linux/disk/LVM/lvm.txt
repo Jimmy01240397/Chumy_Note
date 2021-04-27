@@ -9,6 +9,22 @@ Remove:
 lvremove /dev/naslvm/naslv
 
 
+Resize:
+lvextend and lvreduce can use lvresize
+
+Add size:
+lvextend -L 200G /dev/naslvm/naslv
+e2fsck -f /dev/naslvm/naslv
+resize2fs /dev/naslvm/naslv
+
+remove size:
+umount /NAS
+e2fsck -f /dev/naslvm/naslv
+resize2fs /dev/naslvm/naslv 200G
+lvreduce -L 200G /dev/naslvm/naslv
+resize2fs /dev/naslvm/naslv
+
+
 Thinly Provisioned Logical Volume:
 
 lvcreate -l 100%FREE --thinpool nasthinpool naslvm
