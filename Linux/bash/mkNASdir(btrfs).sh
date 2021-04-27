@@ -50,9 +50,30 @@ then
 	exit 0
 fi
 
-mkdir /NAS/$folder
-chown $user:$group /NAS/$folder
 
+lssubans=`btrfs subvolume list /NAS | grep $folder`
+if [ "$lssubans" != "" ] 
+then
+	echo "folder is Exist!!"
+	exit 0
+fi
+
+while [ -e /NAS/.Temp2 ]
+do
+	sleep 1
+done
+mkdir /NAS/.Temp2
+if [ -e /NAS/$folder ]
+then
+	mv /NAS/$folder/* /NAS/$folder/.[^.]* /NAS/.Temp2/
+	rm -r /NAS/$folder
+fi
+
+btrfs subvolume create /NAS/$folder
+mv /NAS/.Temp2/* /NAS/.Temp2/.[^.]* /NAS/$folder/
+rm -r /NAS/.Temp2
+chown $user:$group /NAS/$folder
+snapper -c $folder create-config /NAS/$folder
 
 echo "[$folder]" > /etc/samba/conf.d/$folder.conf
 echo "	path = /NAS/$folder" >> /etc/samba/conf.d/$folder.conf
@@ -67,11 +88,13 @@ echo "	valid users = $user" >> /etc/samba/conf.d/$folder.conf
 
 mkdir /home/$user/$folder
 
-echo "/NAS/$folder /home/$user/$folder none bind 0 0" > /etc/fstabconf/conf.d/$folder
+uuid=`blkid /dev/md127  | awk '{print $2}' | cut -c 7-42`
+
+echo "UUID=$uuid	/home/$user/$folder	btrfs	subvol=$folder	0	1" > /etc/fstabconf/conf.d/$folder
 
 /etc/samba/mergeconf.sh
 
-sleep 1.5
+sleep 1
 mount -a
 
 #echo end

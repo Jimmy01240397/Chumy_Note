@@ -1,0 +1,15 @@
+pvcreate /dev/md0
+
+vgcreate naslvm /dev/md0
+
+lvcreate -l 100%FREE -n naslv naslvm
+
+
+Remove:
+lvremove /dev/naslvm/naslv
+
+
+Thinly Provisioned Logical Volume:
+
+lvcreate -l 100%FREE --thinpool nasthinpool naslvm
+lvcreate -V 5T --thin -n naslv naslvm/nasthinpool
