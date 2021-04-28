@@ -9,6 +9,8 @@ mdadm -E /dev/sd[b-f]1
 mdadm --create /dev/md0 --level=6 --raid-devices=5 /dev/sd[b-f]1
 
 
+mdadm --add /dev/md0 /dev/sdf1
+
 
 mdadm --stop /dev/md0
 
