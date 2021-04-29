@@ -1,7 +1,6 @@
+Create:
 pvcreate /dev/md0
-
 vgcreate naslvm /dev/md0
-
 lvcreate -l 100%FREE -n naslv naslvm
 
 
@@ -12,10 +11,13 @@ lvremove /dev/naslvm/naslv
 Resize:
 lvextend and lvreduce can use lvresize
 
+pvresize /dev/md0
+
 Add size:
 lvextend -L 200G /dev/naslvm/naslv
-e2fsck -f /dev/naslvm/naslv
-resize2fs /dev/naslvm/naslv
+(choose) e2fsck -f /dev/naslvm/naslv
+resize2fs -p /dev/naslvm/naslv
+
 
 remove size:
 umount /NAS
@@ -26,6 +28,5 @@ resize2fs /dev/naslvm/naslv
 
 
 Thinly Provisioned Logical Volume:
-
 lvcreate -l 100%FREE --thinpool nasthinpool naslvm
 lvcreate -V 5T --thin -n naslv naslvm/nasthinpool

@@ -1,17 +1,22 @@
+Create:
 fdisk /dev/sd[b-f]1 => 
 	n (1)
 	t (29 = Linux Raid)
 	w
 
-
 mdadm -E /dev/sd[b-f]1
-
 mdadm --create /dev/md0 --level=6 --raid-devices=5 /dev/sd[b-f]1
 
 
+Add disk:
 mdadm --add /dev/md0 /dev/sdf1
 
 
-mdadm --stop /dev/md0
+Resize:
+mdadm --grow --size=max /dev/md0
+resize2fs -p /dev/md0
 
+
+Remove:
+mdadm --stop /dev/md0
 mdadm --zero-superblock /dev/sd[b-f]1
