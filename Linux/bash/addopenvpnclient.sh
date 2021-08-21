@@ -10,6 +10,7 @@ fi
 user=""
 template=""
 location=""
+ca=""
 for a in $(seq 1 1 $argnum)
 do
         nowarg=$1
@@ -22,7 +23,10 @@ do
                         shift
                         template=$1
                         ;;
-
+                -c)
+                        shift
+                        ca=$1
+                        ;;
                 -u)
                         shift
                         user=$1
@@ -54,15 +58,20 @@ then
 	location="."
 fi
 
+if [ "$ca" = "" ]
+then
+	ca=$template
+fi
+
 output=$location/"$user"_"$template".ovpn
 
 cp /etc/openvpn/client/$template.conf $output
 echo "<ca>" >> $output
-cat /etc/easy-rsa/$template/pki/ca.crt >> $output
+cat /etc/easy-rsa/$ca/pki/ca.crt >> $output
 echo "</ca>" >> $output
 echo "<cert>" >> $output
-cat /etc/easy-rsa/$template/pki/issued/$user.crt >> $output
+cat /etc/easy-rsa/$ca/pki/issued/$user.crt >> $output
 echo "</cert>" >> $output
 echo "<key>" >> $output
-cat /etc/easy-rsa/$template/pki/private/$user.key >> $output
+cat /etc/easy-rsa/$ca/pki/private/$user.key >> $output
 echo "</key>" >> $output
