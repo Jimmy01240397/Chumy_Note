@@ -1,0 +1,30 @@
+apt-get install libsasl2-modules postfix
+
+vi /etc/postfix/main.cf =>
+
+myhostname = <hostname>
+
+relayhost = [smtp.gmail.com]:587
+smtp_use_tls = yes
+smtp_sasl_auth_enable = yes
+smtp_sasl_security_options =
+smtp_sasl_password_maps = hash:/etc/postfix/sasl/sasl_passwd
+smtp_tls_CAfile = /etc/ssl/certs/ca-certificates.crt
+
+
+
+vi /etc/postfix/sasl/sasl_passwd =>
+
+[smtp.gmail.com]:587 username@gmail.com:password
+
+
+
+
+postmap /etc/postfix/sasl/sasl_passwd
+
+
+
+
+
+
+https://www.linode.com/docs/guides/configure-postfix-to-send-mail-using-gmail-and-google-workspace-on-debian-or-ubuntu/
