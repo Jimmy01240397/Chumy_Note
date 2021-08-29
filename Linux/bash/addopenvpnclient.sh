@@ -16,7 +16,7 @@ do
         nowarg=$1
         case "$nowarg" in
 	        -h)
-                        echo "addclient.sh -t <Template> -u <user> -l <location>"
+                        echo "addclient.sh -t <Template> -c <ca> -u <user> -l <location>"
                         exit 0
                         ;;
                 -t)
@@ -55,13 +55,21 @@ fi
 
 if [ "$location" = "" ]
 then
-	location="."
+	location=`pwd`
 fi
 
 if [ "$ca" = "" ]
 then
 	ca=$template
 fi
+
+
+if [ `ls /etc/easy-rsa/$ca/pki/issued/$user.crt` = "" ]
+then
+	cd /etc/easy-rsa/$ca
+	./easyrsa build-client-full $user nopass
+fi
+
 
 output=$location/"$user"_"$template".ovpn
 
