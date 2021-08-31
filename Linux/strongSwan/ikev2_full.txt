@@ -1,0 +1,28 @@
+conn nscvpn
+        auto=add
+        keyexchange=ikev2
+        forceencaps=yes
+        dpdaction=clear
+        dpddelay=300s
+        rekey=no
+
+        left=%any
+        leftid=@vpn.nsc.com
+        leftcert=server.crt
+        leftsendcert=always
+        leftsubnet=172.16.10.0/24,10.0.0.0/24
+
+        right=%any
+        rightid=%any
+        rightauth=eap-mschapv2
+        rightsourceip=10.0.0.0/24
+        rightdns=172.16.10.10
+        rightsendcert=never
+
+        eap_identity=%identity
+
+        mark_in=42
+        mark_out=42
+
+        ike=chacha20poly1305-sha512-curve25519-prfsha512,aes256gcm16-sha384-prfsha384-ecp384,aes256-sha1-modp1024,aes128-sha1-modp1024,3des-sha1-modp1024!
+	esp=chacha20poly1305-sha512,aes256gcm16-ecp384,aes256-sha256,aes256-sha1,3des-sha1!

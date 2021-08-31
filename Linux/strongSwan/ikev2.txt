@@ -1,0 +1,85 @@
+apt install strongswan strongswan-pki libcharon-extra-plugins libcharon-extauth-plugins libstrongswan-extra-plugins
+
+vi /etc/easy-rsa/pki/openssl-easyrsa.cnf :
+oid_section             = new_oids
+
+[ new_oids ]
+ikeIntermediate=1.3.6.1.5.5.8.2.2
+
+
+vi /etc/easy-rsa/x509-types/server :
+extendedKeyUsage = serverAuth,ikeIntermediate
+
+
+vi /etc/easy-rsa/x509-types/COMMON :
+crlDistributionPoints = URI:http://www.nsc.com/nsc.crl #解註解
+
+
+
+./easyrsa build-server-full *.nsc.com nopass
+
+cp /etc/easy-rsa/pki/ca.crt /etc/ipsec.d/cacerts/
+cp /etc/easy-rsa/pki/issued/\*.nsc.com.crt /etc/ipsec.d/certs/server.crt
+cp /etc/easy-rsa/pki/private/\*.nsc.com.key /etc/ipsec.d/private/server.key
+
+
+vi /etc/ipsec.conf :
+conn nscvpn
+        auto=add
+        keyexchange=ikev2
+
+        leftid=@vpn.nsc.com
+        leftcert=server.crt
+        leftsubnet=172.16.10.0/24,10.0.0.0/24
+
+        rightauth=eap-mschapv2
+        rightsourceip=10.0.0.0/24
+        rightdns=172.16.10.10
+
+        eap_identity=%identity
+
+        mark_in=42
+        mark_out=42
+
+        ike=aes256-sha1-modp1024,aes128-sha1-modp1024,3des-sha1-modp1024!
+        esp=aes256-sha256,aes256-sha1,3des-sha1!
+
+
+
+vi /etc/strongswan.conf :
+charon {
+	.
+	.
+	.
+        install_routes = no
+        install_virtual_ip = no
+	.
+	.
+	.
+}
+include strongswan.d/*.conf
+
+
+
+vi /etc/ipsec.secrets :
+: RSA "server.key"
+admin : EAP "Skills39"
+
+
+
+vi /etc/network/interfaces : 
+auto eth0
+iface eth0 inet static
+        address 172.16.10.20/24
+        gateway 172.16.10.254
+        up ip tunnel add vti0 mode vti local 172.16.10.20 key 42
+
+auto vti0
+iface vti0 inet static
+        address 10.0.0.254/24
+
+
+
+ifdown eth0
+ifup eth0
+ifup vti0
