@@ -1,0 +1,16 @@
+remote server:
+
+winrm quickconfig
+or
+Enable-PSRemoting -Force
+
+wf.msc => tcp 5985(http),5986(https)
+
+
+client:
+
+winrm s winrm/config/client @{TrustedHosts="<server host>"}
+
+winrs -r:NSC-HQ-WS -u:Administrator -p:Skills39 cmd
+or
+Enter-PSSession -ComputerName NSC-HQ-WS -Credential admin
