@@ -1,0 +1,3 @@
+dsadd user "<userdn>" -display <username> -memberof "<groupdn>" -pwd <password>
+
+dsmod group <GroupDN> {-addmbr | -rmmbr | -chmbr} <MemberDN>

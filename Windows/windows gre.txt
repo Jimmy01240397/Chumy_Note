@@ -1,0 +1,24 @@
+先查看有無介面
+
+```powershell
+Get-VpnS2SInterface
+```
+
+新增gre interface 
+
+```powershell
+Add-VpnS2SInterface -Destination 遠端IP -GreTunnel -Name gre1 -SourceIPAddress 自己連線介面IP -IPv4Address GRE網卡IP
+Get-VpnS2SInterface
+```
+
+增加靜態路由
+
+```powershell
+route add 遠端GRE網卡IP mask 255.255.255.255 GRE網卡IP
+```
+
+再新增遠端網路
+
+```powershell
+route add 遠端網路 mask 遠端網路遮罩 遠端GRE網卡IP(gateway)
+```

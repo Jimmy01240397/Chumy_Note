@@ -1,0 +1,12 @@
+net user 查看系統中的用戶信息 
+net user test /add 添加用戶test 
+net localgroup Administrators test /add 添加test用戶为管理員組 
+net localgroup users test /del 從users組中刪除test用戶 
+net user test 查看test用戶用戶信息 
+net user test /active:no 禁用test用戶 
+net user test /active:yes 激活test用戶 
+net user test 123456 改變test用戶密碼为123456，不需要知道原密碼 <br>net user test "" 改變test用戶密碼为空 
+net user test /passwordchg:yes 用戶test可以改變密碼 
+net user test /passwordreq:yes 用戶test必須擁有密碼 
+net user test /expires:never 用戶test密碼永不過期 
+net user test /del 刪除test用
