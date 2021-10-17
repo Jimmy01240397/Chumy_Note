@@ -1,0 +1,10 @@
+
+###########################
+####  iptables log     ####
+###########################
+
+if $msg contains "THIS IS IPTABLE WLAN0!!!" then {
+	^/etc/wifiloginserver/wifiallowlist.sh
+	stop
+}
+
