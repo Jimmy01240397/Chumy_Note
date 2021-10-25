@@ -64,12 +64,13 @@ then
 fi
 
 
-if [ `ls /etc/easy-rsa/$ca/pki/issued/$user.crt` = "" ]
+if [ `test -f  /etc/easy-rsa/$ca/pki/issued/$user.crt` ]
 then
+	echo Using exist certificate!
+else
 	cd /etc/easy-rsa/$ca
 	./easyrsa build-client-full $user nopass
 fi
-
 
 output=$location/"$user"_"$template".ovpn
 
