@@ -60,8 +60,10 @@ echo "	security = user" >> /etc/samba/conf.d/$folder.conf
 echo "	browseable = yes" >> /etc/samba/conf.d/$folder.conf
 echo "	read only = no" >> /etc/samba/conf.d/$folder.conf
 echo "	guest ok = no" >> /etc/samba/conf.d/$folder.conf
-echo "	create mask = 0755" >> /etc/samba/conf.d/$folder.conf
-echo "	directory mask = 0755" >> /etc/samba/conf.d/$folder.conf
+echo "  force create mode = 755" >> /etc/samba/conf.d/$folder.conf
+echo "  force security mode = 755" >> /etc/samba/conf.d/$folder.conf
+echo "  force directory mode = 0755" >> /etc/samba/conf.d/$folder.conf
+echo "  force directory security mode = 0755" >> /etc/samba/conf.d/$folder.conf
 echo "	force user = $user" >> /etc/samba/conf.d/$folder.conf
 echo "	valid users = $user" >> /etc/samba/conf.d/$folder.conf
 
