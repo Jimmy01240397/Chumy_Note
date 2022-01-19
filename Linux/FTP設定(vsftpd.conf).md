@@ -1,3 +1,4 @@
+``` bash
 # Example config file /etc/vsftpd.conf
 #
 # The default compiled in settings are fairly paranoid. This sample file
@@ -156,3 +157,4 @@ ssl_enable=YES
 #
 # Uncomment this to indicate that vsftpd use a utf8 filesystem.
 #utf8_filesystem=YES
+```
