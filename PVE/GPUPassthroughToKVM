@@ -1,0 +1,5 @@
+# PVE
+## set grub
+```
+vi /etc/default/grub
+```
