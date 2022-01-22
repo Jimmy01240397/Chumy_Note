@@ -14,28 +14,28 @@ deb http://deb.debian.org/debian bullseye-backports main contrib non-free
 ## update and full-upgrade
 
 ## install pve-header
-```
+``` bash
 apt-get install pve-headers-<your kernal version>-pve 
 ```
 
 ## install dkms
-```
+``` bash
 apt-get install dkms
 ```
 
 ## check
-```
+``` bash
 lspci | grep -i nvidia
 lspci -vvv |grep -i -A 20 nvidia
 ```
 
 ## install driver
-```
+``` bash
 apt-get install -t bullseye-backports nvidia-driver nvidia-smi
 ```
 
 ## add modules
-```
+``` bash
 vi /etc/modules-load.d/nvidia.conf
 
 nvidia-drm
@@ -45,12 +45,12 @@ nvidia_uvm
 blacklist nouveau
 blacklist nvidiafb
 ```
-```
+``` bash
 update-initramfs -u -k all
 ```
 
 ## add rules
-```
+``` bash
 vi /etc/udev/rules.d/70-nvidia.rules
 KERNEL=="nvidia", RUN+="/bin/bash -c '/usr/bin/nvidia-smi -L && /bin/chmod 666 /dev/nvidia*'"
 KERNEL=="nvidia_uvm", RUN+="/bin/bash -c '/usr/bin/nvidia-modprobe -c0 -u && /bin/chmod 0666 /dev/nvidia-uvm*'"
@@ -59,7 +59,7 @@ KERNEL=="nvidia_uvm", RUN+="/bin/bash -c '/usr/bin/nvidia-modprobe -c0 -u && /bi
 ## reboot pve
 
 ## check and remember 3 important number, in this case is 195, 508, 226
-```
+``` bash
 root@pve:~# ls -al /dev/nvidia*
 crw-rw-rw- 1 root root 195,   0 Jan 22 19:42 /dev/nvidia0
 crw-rw-rw- 1 root root 195, 255 Jan 22 19:42 /dev/nvidiactl
@@ -111,15 +111,15 @@ Sun Jan 23 01:24:44 2022
 # setting LXC
 ## boot LXC and apt update and full-upgrade
 ## download your driver installer from nvidia the use the same version with pve, in this case is 470.94. (check with nvidia-smi)
-```
+``` bash
 wget http://us.download.nvidia.com/XFree86/Linux-x86_64/<your driver version>/NVIDIA-Linux-x86_64-<your driver version>.run
 ```
 ## install driver
-```
+``` bash
 bash NVIDIA-Linux-x86_64-<your driver version>.run --no-kernel-module
 ```
 ## shutdown your LXC and goto pve. set your LXC conf. add your [3 important numbers that you get befor](#check-and-remember-3-important-number-in-this-case-is-195-508-226)
-```
+``` bash
 vi /etc/pve/lxc/<LXC ID>.conf
 lxc.cgroup.devices.allow: c 195:* rwm
 lxc.cgroup.devices.allow: c 508:* rwm
@@ -133,23 +133,23 @@ lxc.mount.entry: /dev/dri dev/dri none bind,optional,create=dir
 ```
 
 ## boot your LXC and you can check with nvidia-smi
-```
+``` bash
 nvidia-smi
 ```
 
 # install cuda
 ## install packages
-```
+``` bash
 apt-get install gcc g++ freeglut3-dev build-essential libx11-dev libxmu-dev libxi-dev libglu1-mesa libglu1-mesa-dev
 ```
 
 ## download cuda install from nvidia the use the same version with [nvidia-smi that you saw befor](#boot-your-LXC-and-you-can-check-with-nvidia-smi)
-```
+``` bash
 wget https://developer.download.nvidia.com/compute/cuda/11.4.3/local_installers/cuda_11.4.3_470.82.01_linux.run
 ```
 
 ## install cuda and don't install driver
-```
+``` bash
 bash cuda_11.4.3_470.82.01_linux.run
 ┌──────────────────────────────────────────────────────────────────────────────┐
 │  End User License Agreement                                                  │
@@ -205,12 +205,12 @@ accept
 ```
 ## goto /etc/profile add PATH=/usr/local/cuda-11.4/bin:$PATH and add /usr/local/cuda-11.4/lib64 to /etc/ld.so.conf.d/cuda-11-4.conf and run ldconfig as root.
 ## check with nvcc -V
-```
+``` bash
 nvcc -V
 ```
 
 ## testing
-```
+``` bash
 cuda-install-samples-11.4.sh ~
 
 cd ~/NVIDIA_CUDA-11.4_Samples/5_Simulations/nbody
@@ -223,7 +223,7 @@ GLPATH=/usr/lib make
 
 ./nbody numdevices=1 -benchmark
 ```
-```
+``` bash
 root@VASP:~/NVIDIA_CUDA-11.4_Samples/5_Simulations/nbody# ./nbody numdevices=1 -benchmark
 Run "nbody -benchmark [-numbodies=<numBodies>]" to measure performance.
         -fullscreen       (run n-body simulation in fullscreen mode)
