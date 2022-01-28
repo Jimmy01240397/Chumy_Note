@@ -57,7 +57,7 @@ session optional        pam_mkhomedir.so skel=/etc/skel umask=077
 pam-auth-update
 ```
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/2df9f6ff-90fb-48b2-ba7b-daebf0b81156/Untitled.png)
+![image](https://user-images.githubusercontent.com/57281249/151607602-d6251838-b6d6-4488-87d1-3ee4ec6d7d32.png)
 
 檢查/etc/pam_ldap.conf 裡面的uri 路徑是否正確
 
