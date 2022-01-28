@@ -1,5 +1,7 @@
 # LDAP server
 
+copy from dino
+
 server
 
 ```bash
@@ -22,15 +24,15 @@ dpkg-reconfig slapd
 
 選NO開始互動式設定資訊
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1f25bf6b-879a-418d-b9e7-37d967ad5408/Untitled.png)
+![image](https://user-images.githubusercontent.com/57281249/151606974-6b1d212a-6da9-4238-91ba-739ee0a9347b.png)
 
 設定Domain name
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/87991fc4-7f35-4532-bab4-71616a992848/Untitled.png)
+![image](https://user-images.githubusercontent.com/57281249/151607012-56a3eefb-0d2f-48d8-a05f-c541ac3c0ee8.png)
 
 設定OU
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/1cabd87c-bb3e-487d-9120-aab436a8941f/Untitled.png)
+![image](https://user-images.githubusercontent.com/57281249/151607043-b36fcdf7-ac6a-48e7-8421-f8ff7c006277.png)
 
 建立ldif 的使用者範本
 
