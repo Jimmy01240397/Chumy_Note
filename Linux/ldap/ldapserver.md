@@ -1,3 +1,5 @@
+# LDAP server
+
 server
 
 ```bash
@@ -113,4 +115,8 @@ ldapdelete -x -W -D 'cn=admin,dc=skill39,dc=com' "uid=john,ou=people,dc=skill39,
 ldapdelete -x -w -D 'cn=admin,dc=skill39,dc=com' "cn=john,ou=groups,dc=skill39,dc=com"
 ```
 
-[LDAP protocol](https://www.notion.so/b5ac0093195a4d5d94b2539552577b69)
+|  url | protocol | transport|
+|------|----------|----------|
+|  ldap:// | LDAP | tcp 389 |
+|  ldaps:// | LDAP over SSL | tcp 636 |
+|  ldapi:// | LDAP | IPC (Unix-domain socket) |
