@@ -44,11 +44,11 @@ vim /etc/ldap/base.ldif
 
 ```bash
 dn: ou=people,dc=skill39,dc=com
-objectClass: organzationalUnit
+objectClass: organizationalUnit
 ou: people
 
 dn: ou=groups,dc=skill39,dc=com
-objectClass: organzationalUnit
+objectClass: organizationalUnit
 ou: groups
 ```
 
