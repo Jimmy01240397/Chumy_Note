@@ -101,5 +101,6 @@ iface vti0 inet static
 ``` bash
 ifdown eth0
 ifup eth0
-```
+
 ifup vti0
+```
