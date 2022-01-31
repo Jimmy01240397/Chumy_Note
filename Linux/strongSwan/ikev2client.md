@@ -33,3 +33,10 @@ admin : EAP "Skills39"
 ```
 
 Routing base see ikev2server.md
+
+## For DNS
+```
+apt-get install -y apparmor-utils
+aa-complain /usr/lib/ipsec/charon
+aa-complain /usr/lib/ipsec/stroke
+```
