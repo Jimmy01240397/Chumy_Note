@@ -1,5 +1,5 @@
 # add
-see [擴充VM硬碟與系統分割區容量](/擴充VM硬碟與系統分割區容量.txt)
+see [擴充VM硬碟與系統分割區容量](擴充VM硬碟與系統分割區容量.txt)
 ``` bash
 resize2fs /dev/sda
 ```
@@ -9,7 +9,7 @@ resize2fs /dev/sda
 ``` bash
 resize2fs /dev/sda 89G
 ```
-set partition size 90G see [擴充VM硬碟與系統分割區容量](/擴充VM硬碟與系統分割區容量.txt)
+set partition size 90G see [擴充VM硬碟與系統分割區容量](擴充VM硬碟與系統分割區容量.txt)
 ``` bash
 resize2fs /dev/sda
 ```
