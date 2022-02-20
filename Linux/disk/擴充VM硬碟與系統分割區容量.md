@@ -1,8 +1,17 @@
+# on host
+``` batch
 vmware-vdiskmanager.exe -x 要的容量GB myDisk.vmdk
+```
+
+# on vm
+1. 關閉swap後進入fdisk
+``` bash
 swapoff -a
 fdisk /dev/sda
+```
 
-1.刪除分割區
+2. 刪除分割區
+```
 Command (m for help): d
 Partition number (1,2,5, default 5):
 
@@ -16,9 +25,10 @@ Partition 2 has been deleted.
 Command (m for help): d
 Selected partition 1
 Partition 1 has been deleted.
+```
 
-
-2.重建分割區
+3. 重建分割區
+```
 Command (m for help): n
 Partition type
    p   primary (0 primary, 0 extended, 4 free)
@@ -49,8 +59,10 @@ Select (default p): p
 Partition number 5
 
 Created a new partition 5 of type 'Linux' and of size (剛留的2G) GiB.
+```
 
-3.幫swap定type
+4. 幫swap定type
+```
 Command (m for help): t
 Partition number (1,2,5, default 5): 5
 Partition type (type L to list all types): L
@@ -83,8 +95,10 @@ Partition type (type L to list all types): L
 Partition type (type L to list all types): 82
 
 Changed type of partition 'Linux' to 'Linux swap / Solaris'.
+```
 
-4.設定開機分割
+5. 設定開機分割
+```
 Command (m for help): m
 
 Command action
@@ -108,22 +122,35 @@ Command action
 Command (m for help): a
 Partition number (1-5): 1
 
-離開fdisk
+Command (m for help): q
+```
 
+6. 重讀分區
+``` bash
 partprobe
+```
 
+7. 重建swap
+``` bash
 mkswap /dev/sda5
 =>	Setting up swapspace version 1, size = 4193276 KiB
 	no label, UUID:######
+```
 
-vi /etc/fstab:
-
-UUID=原UUID       none    swap    sw      0       0
-改成
+8. 更改swap uuid
+``` bash
+vi /etc/fstab
+```
+```
+# UUID=原UUID       none    swap    sw      0       0
 UUID=######(新UUID)       none    swap    sw      0       0
+```
 
+9. 啟動swap、update-initramfs 後 reboot
+``` bash
 swapon -a
 
 update-initramfs -u
 
 init 6
+```
