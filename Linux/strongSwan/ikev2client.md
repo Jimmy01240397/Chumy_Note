@@ -28,8 +28,7 @@ conn ikevpn
 vi /etc/ipsec.secrets
 ```
 ``` bash
-: RSA "server.key"
-admin : EAP "Skills39"
+vpn : EAP "Skills39"
 ```
 
 Routing base see ikev2server.md
