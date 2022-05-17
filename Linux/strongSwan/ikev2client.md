@@ -25,7 +25,7 @@ conn ikevpn
 ```
 
 ``` bash
-vi /etc/ipsec.secretsvi /etc/ipsec.secrets
+vi /etc/ipsec.secrets
 ```
 ``` bash
 : RSA "server.key"
