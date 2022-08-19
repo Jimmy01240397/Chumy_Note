@@ -1,5 +1,5 @@
 ``` bash
-vi /etc/ppp/if-up.d/route
+vi /etc/ppp/ip-up.d/route
 ```
 
 ``` bash
