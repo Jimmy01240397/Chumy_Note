@@ -1,26 +1,26 @@
 # Create
 ``` bash
-fdisk /dev/sdb1
+fdisk /dev/sdb
 	n (1)
 	t (29 = Linux Raid)
 	w
 	q
-fdisk /dev/sdc1
+fdisk /dev/sdc
 	n (1)
 	t (29 = Linux Raid)
 	w
 	q
-fdisk /dev/sdd1
+fdisk /dev/sdd
 	n (1)
 	t (29 = Linux Raid)
 	w
 	q
-fdisk /dev/sde1
+fdisk /dev/sde
 	n (1)
 	t (29 = Linux Raid)
 	w
 	q
-fdisk /dev/sdf1
+fdisk /dev/sdf
 	n (1)
 	t (29 = Linux Raid)
 	w
