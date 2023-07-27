@@ -1,7 +1,8 @@
 # k8s install
 
-[about install](https://www.linuxtechi.com/install-kubernetes-cluster-on-debian/)
+ref: [about install 1](https://www.linuxtechi.com/install-kubernetes-cluster-on-debian/)
 
+ref: [about install 2](https://ithelp.ithome.com.tw/articles/10236963)
 ``` bash
 sudo swapoff -a
 sudo vi /etc/fstab
@@ -32,6 +33,7 @@ sudo apt install kubelet kubeadm kubectl -y
 ```
 
 # k8s master init
+ref: [for init failed](https://blog.csdn.net/woay2008/article/details/93250137)
 
 ``` bash
 rm -r $HOME/.kube
@@ -43,7 +45,7 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 # setup kube-flannel
 kubectl apply -f https://github.com/flannel-io/flannel/releases/latest/download/kube-flannel.yml  
 ```
-[about join token](https://sleeplessbeastie.eu/2020/10/02/how-to-display-command-to-join-kubernetes-cluster/)
+ref: [about join token](https://sleeplessbeastie.eu/2020/10/02/how-to-display-command-to-join-kubernetes-cluster/)
 
 show master info
 ``` bash
@@ -52,12 +54,14 @@ kubectl cluster-info
 ```
 
 # k8s cluster join
-[about join token](https://sleeplessbeastie.eu/2020/10/02/how-to-display-command-to-join-kubernetes-cluster/)
+ref: [about join token](https://sleeplessbeastie.eu/2020/10/02/how-to-display-command-to-join-kubernetes-cluster/)
 ``` bash
 sudo kubeadm join k8s-master:6443 --token ${tokenid} --discovery-token-ca-cert-hash ${tokenhash}
 ```
 
 # k8s dashboard
+ref: [install dashboard](https://kubernetes.io/zh-cn/docs/tasks/access-application-cluster/web-ui-dashboard/)
+
 ``` bash
 # setup kubernetes-dashboard
 sudo kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.7.0/aio/deploy/recommended.yaml
@@ -73,6 +77,13 @@ curl https://192.168.100.149/api/v1/namespaces/kubernetes-dashboard/services/htt
 ![image](https://github.com/Jimmy01240397/IT_System_Admin_Note/assets/57281249/9ea16896-7860-46ed-b361-d828a067929f)
 
 setup user token
+
+ref: [install dashboard and setup service account 1](https://medium.com/learn-or-die/kubernetes-dashboard-%E4%BD%BF%E7%94%A8%E8%87%AA%E5%AE%9A%E7%BE%A9-service-account-%E7%99%BB%E5%85%A5-b136669fff34)
+
+ref: [install dashboard and setup service account 2](https://upcloud.com/resources/tutorials/deploy-kubernetes-dashboard)
+
+ref: [about service account didn't have secret](https://stackoverflow.com/questions/72256006/service-account-secret-is-not-listed-how-to-fix-it)
+
 ``` bash
 kubectl create sa admin -n kubernetes-dashboard
 
@@ -95,6 +106,11 @@ kubectl create token admin -n kubernetes-dashboard
 ```
 
 setup user kubeconfig
+
+ref: [kubeconfig setup 1](https://jimmysong.io/kubernetes-handbook/guide/authenticate-across-clusters-kubeconfig.html)
+
+ref: [kubeconfig setup 2](https://stackoverflow.com/questions/70287656/kubernetes-dashboard-internal-error-500-not-enough-data-to-create-auth-info)
+
 generate script
 ``` bash
 #!/bin/bash
