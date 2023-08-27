@@ -17,5 +17,6 @@
 acme.skills39.tw {
     acme_server
     tls internal
+    rewrite /directory /acme/local/directory
 }
 ```
