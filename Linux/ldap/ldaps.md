@@ -51,7 +51,7 @@ SLAPD_SERVICES="ldap:/// ldapi:/// ldaps:///"
 ```
 
 ## ldapsearch for client
-**Client must have `/etc/ldap/ldap.conf` or ldapsearch for TLS will broken**
+***Client must have `/etc/ldap/ldap.conf` or ldapsearch for TLS will broken***
 ```
 #
 # LDAP Defaults
