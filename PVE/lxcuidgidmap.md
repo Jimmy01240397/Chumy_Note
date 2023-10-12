@@ -23,3 +23,6 @@ $raw .= "lxc.idmap = u 0 100000 65536\n";
 $raw .= "lxc.idmap = g 0 100000 65536\n";
 ...
 ```
+```bash
+systemctl restart pvedaemon.service
+```
