@@ -50,3 +50,28 @@ af:00.3 Serial bus controller [0c80]: NVIDIA Corporation TU102 USB Type-C UCSI C
 # setting KVM
 ## set like this
 ![image](https://user-images.githubusercontent.com/57281249/150650449-3a7955cc-ca28-40ad-8bda-ef1a01160d4a.png)
+
+## Add pre-start hook to remove GPU from host
+```bash
+vi /var/lib/vz/snippets/gpu-hookscript.sh
+```
+```bash
+#!/bin/bash
+
+if [ $2 == "pre-start" ]
+then
+    echo "gpu-hookscript: Resetting GPU for Virtual Machine $1"
+    echo 1 > /sys/bus/pci/devices/0000\:c1\:00.0/remove
+#    echo 1 > /sys/bus/pci/devices/0000\:00\:1f.3/remove
+    echo 1 > /sys/bus/pci/rescan
+fi
+```
+
+```bash
+vi /etc/pve/qemu-server/<vmid>.conf
+```
+```
+...
+hookscript: local:snippets/gpu-hookscript.sh
+...
+```
