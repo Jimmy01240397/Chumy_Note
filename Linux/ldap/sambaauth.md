@@ -67,3 +67,34 @@ smbldap-config
 ```
 smbldap-populate -g 10000 -u 10000 -r 10000
 ```
+
+## Setup smbk5pwd overlay
+
+1. Install `slapd-contrib`
+```bash
+apt install slapd-contrib
+```
+
+2. Write ldif
+```ldif
+dn: cn=module,cn=config
+objectClass: olcModuleList
+cn: module
+olcModulePath: /usr/lib/ldap
+olcModuleLoad: smbk5pwd
+
+dn: olcOverlay=smbk5pwd,olcDatabase={1}mdb,cn=config
+objectClass: olcConfig
+objectClass: olcOverlayConfig
+objectClass: olcSmbK5PwdConfig
+objectClass: top
+olcOverlay: smbk5pwd
+olcSmbK5PwdEnable: samba
+olcSmbK5PwdMustChange: 0
+```
+
+3. Run command to setup setting
+```bash
+sudo -u openldap slapadd -b cn=config -l <overlay ldif file>
+systemctl restart slapd.service
+```
