@@ -1,7 +1,7 @@
 # Set memberof overlay
 
 1. Write ldif
-```
+```ldif
 dn: cn=module,cn=config
 objectClass: olcModuleList
 cn: module
@@ -22,6 +22,7 @@ olcMemberOfMemberOfAD: memberOf
 ```
 
 2. Run command to setup setting
-```
+```bash
 sudo -u openldap slapadd -b cn=config -l <overlay ldif file>
+systemctl restart slapd.service
 ```
