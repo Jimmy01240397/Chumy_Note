@@ -16,7 +16,7 @@ lxc.idmap = g 0 100000 65536
 ``` bash
 vi /usr/share/perl5/PVE/LXC.pm
 ```
-```
+```perl
 ...
 # At line 653
 $raw .= "lxc.idmap = u 0 100000 65536\n";
