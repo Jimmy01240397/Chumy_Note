@@ -145,6 +145,12 @@ vi /etc/fstab
 # UUID=原UUID       none    swap    sw      0       0
 UUID=######(新UUID)       none    swap    sw      0       0
 ```
+``` bash
+vi /etc/initramfs-tools/conf.d/resume
+```
+```
+RESUME=UUID=<new UUID>
+```
 
 9. 啟動swap、update-initramfs 後 reboot
 ``` bash
