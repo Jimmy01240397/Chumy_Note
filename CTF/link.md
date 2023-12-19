@@ -1,1 +1,2 @@
-[ctf wiki](https://ctf-wiki.org/)
+- [ctf wiki](https://ctf-wiki.org/)
+- [AD_security](https://adsecurity.org/)
