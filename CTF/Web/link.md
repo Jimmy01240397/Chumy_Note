@@ -2,3 +2,4 @@
 [Runtime.exec](https://payloads.net/Runtime.exec/)
 [pipedream](https://pipedream.com/)
 [xsinator](https://xsinator.com/)
+[JS 解混淆](https://obf-io.deobfuscate.io/)
