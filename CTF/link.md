@@ -1,3 +1,4 @@
 - [ctf wiki](https://ctf-wiki.org/)
 - [AD_security](https://adsecurity.org/)
 - [devhints](https://devhints.io/)
+- [shodan](https://www.shodan.io/)
