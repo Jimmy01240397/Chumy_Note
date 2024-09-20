@@ -19,7 +19,7 @@ slapcat
 設定ldap domain 資訊:
 
 ```bash
-dpkg-reconfig slapd
+dpkg-reconfigure slapd
 ```
 
 選NO開始互動式設定資訊
