@@ -125,6 +125,8 @@ RUNDIR=/var/spool/postfix/run/opendkim
 ### `/etc/opendkim.conf`
 
 ```
+Socket                 local:/var/spool/postfix/run/opendkim/opendkim.sock
+
 # Key table
 KeyTable           /etc/opendkim/KeyTable
 SigningTable       /etc/opendkim/SigningTable
