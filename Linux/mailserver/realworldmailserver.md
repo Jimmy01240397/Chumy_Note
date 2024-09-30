@@ -195,6 +195,11 @@ ssl_min_protocol = TLSv1.2
   }
 ```
 
+### restart
 
+```bash
+systemctl restart dovecot.service
+systemctl reload dovecot.service
+```
 
 
