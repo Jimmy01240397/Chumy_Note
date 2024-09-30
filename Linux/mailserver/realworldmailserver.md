@@ -74,7 +74,7 @@ inet_interfaces = all
 inet_protocols = all
 ```
 
-### `master.cf``
+### `master.cf`
 
 ```
 smtp      inet  n       -       y       -       -       smtpd
