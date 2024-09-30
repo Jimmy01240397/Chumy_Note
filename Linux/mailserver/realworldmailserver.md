@@ -109,6 +109,7 @@ systemctl reload postfix.service
 apt-get install opendkim opendkim-tools
 usermod -a -G opendkim postfix
 mkdir -p /var/spool/postfix/run/opendkim
+chown -R opendkim:opendkim /var/spool/postfix/run/opendkim
 mkdir -p /etc/opendkim/keys/tscctf.com
 cd /etc/opendkim/keys/tscctf.com
 opendkim-genkey -t -s mail -d tscctf.com
@@ -143,6 +144,7 @@ tscctf.com mail._domainkey.tscctf.com
 
 ### restart
 ```
+chown -R opendkim:opendkim /etc/opendkim
 systemctl restart opendkim.service
 systemctl reload opendkim.service
 ```
