@@ -60,7 +60,7 @@ notify_classes = bounce, delay, policy, protocol, resource, software
 defer_transports =
 
 smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
-myhostname = tscctf.com
+myhostname = mail.tscctf.com
 mydomain = tscctf.com
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
