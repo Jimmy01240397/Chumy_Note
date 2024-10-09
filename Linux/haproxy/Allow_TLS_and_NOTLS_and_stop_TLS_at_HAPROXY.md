@@ -1,6 +1,6 @@
 # Allow TLS and NOTLS and stop TLS at HAPROXY
 
-Need 2 Haproxy to implement
+Need 2 haproxy server to implement.
 
 # Proxy1
 
