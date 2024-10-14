@@ -2,3 +2,5 @@
 - [AD_security](https://adsecurity.org/)
 - [devhints](https://devhints.io/)
 - [shodan](https://www.shodan.io/)
+- [搬書匠](http://www.banshujiang.cn/)
+- [nt-info-depot](https://empyreal96.github.io/nt-info-depot/WinDDK.html)
