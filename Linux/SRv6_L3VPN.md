@@ -1,4 +1,11 @@
-# HQTWCE (frr)
+# SRv6 L3VPN
+
+```
+net.ipv6.conf.all.seg6_enabled=1
+net.vrf.strict_mode=1  ?
+```
+
+## HQTWCE (frr)
 ```
 frr version 8.4.2
 frr defaults traditional
@@ -39,7 +46,7 @@ exit
 !
 ```
 
-# TWPE (frr)
+## TWPE (frr)
 ```
 frr version 8.4.2
 frr defaults traditional
@@ -168,7 +175,7 @@ exit
 !
 ```
 
-# MAINGW (frr)
+## MAINGW (frr)
 ```
 frr version 8.4.2
 frr defaults traditional
@@ -301,7 +308,7 @@ exit
 !
 ```
 
-# USPE (Cisco IOS XR 9000)
+## USPE (Cisco IOS XR 9000)
 ```
 !! IOS XR Configuration 7.6.1
 !! Last configuration change at Wed Aug 23 16:55:12 2023 by root
@@ -486,7 +493,7 @@ ssh server v2
 end
 ```
 
-# HQUSCE (frr)
+## HQUSCE (frr)
 ```
 frr version 8.4.2
 frr defaults traditional
