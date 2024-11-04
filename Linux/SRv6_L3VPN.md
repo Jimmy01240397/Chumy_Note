@@ -2,7 +2,7 @@
 
 ```
 net.ipv6.conf.all.seg6_enabled=1
-net.vrf.strict_mode=1  ?
+net.vrf.strict_mode=1
 ```
 
 ## HQTWCE (frr)
