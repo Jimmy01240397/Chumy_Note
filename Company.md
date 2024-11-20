@@ -3,4 +3,5 @@
 - [營業稅申報](https://zanzan.tw/business-tax)
 - [營所稅申報](https://zanzan.tw/enterprise-incometax)
 - [Turnkey system](https://www.einvoice.nat.gov.tw/static/ptl/ein_upload/attachments/1680146243169_0.pdf)
+- [Turnkey system 2](https://www.einvoice.nat.gov.tw/static/ptl/ein_upload/download/321.pdf)
 - [MIG4.0](https://www.einvoice.nat.gov.tw/static/ptl/ein_upload/download/325.pdf)
