@@ -34,6 +34,11 @@ mdadm --create /dev/md0 --level=6 --raid-devices=5 /dev/sd[b-f]1
 mdadm --add /dev/md0 /dev/sdf1
 ```
 
+# Run exist
+```bash
+mdadm --assemble --run /dev/md1 /dev/loop0p3
+```
+
 # Add size
 ``` bash
 mdadm --grow --size=max /dev/md0
