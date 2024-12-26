@@ -42,7 +42,7 @@ smtp_tls_security_level=may
 smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
 
 smtpd_tls_ciphers = high
-smtpd_tls_protocols = TLSv1,!SSLv2,!SSLv3
+smtpd_tls_protocols = TLSv1,TLSv1.1,TLSv1.2,TLSv1.3,!SSLv2,!SSLv3
 smtpd_tls_exclude_ciphers = aNULL,DES,3DES,MD5,DES+MD5,RC4
 
 # DKIM
