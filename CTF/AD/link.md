@@ -1,2 +1,2 @@
 - [Kerberoasting](https://3gstudent.github.io/%E5%9F%9F%E6%B8%97%E9%80%8F-Kerberoasting)
-- [NTUST_JD-RedTeam_Walkthrough(https://hackmd.io/@aifred0729/NTUST_JD-RedTeam_Walkthrough)
+- [NTUST_JD-RedTeam_Walkthrough](https://hackmd.io/@aifred0729/NTUST_JD-RedTeam_Walkthrough)
