@@ -9,5 +9,5 @@ git clone https://w1.fi/hostap.git
 git reset --hard hostap_2_10
 ```
 
-2. use build config
+2. use build [config](.config)
 
