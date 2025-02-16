@@ -1,0 +1,2 @@
+- [TXone](https://s.itho.me/ccms_slides/2023/5/25/74bed7e6-e3b0-475b-ba07-bba34f4f2acd.pdf)
+- [Potatoes_Windows_Privesc](https://jlajara.gitlab.io/Potatoes_Windows_Privesc)
