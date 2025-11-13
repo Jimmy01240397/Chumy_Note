@@ -7,3 +7,4 @@
 - [Red Team Note](https://www.ired.team)
 - [hacktricks](https://book.hacktricks.xyz/)
 - [thehacker recipes](https://www.thehacker.recipes/)
+- [lolc2](https://lolc2.github.io/)
