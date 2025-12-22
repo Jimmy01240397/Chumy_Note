@@ -16,3 +16,6 @@
 
 [MDN Web Docs](https://developer.mozilla.org/en-US/docs/)
 
+[Chrome doc](https://developer.chrome.com/docs/web-platform?hl=zh-tw&utm_source=chatgpt.com)
+
+[mxss cheatsheet](https://sonarsource.github.io/mxss-cheatsheet/)
