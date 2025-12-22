@@ -24,10 +24,10 @@
 
 1. WSGIRequest
 2. ResolverMatch
-3. [[<URLResolver <URLPattern list> (admin:admin) 'admin/'>], [<URLResolver <module 'echo.urls' from '/app/echo/urls.py'> (None:None) ''>, <URLPattern '' [name='index']>]]
-4. [<URLResolver <module 'echo.urls' from '/app/echo/urls.py'> (None:None) ''>, <URLPattern '' [name='index']>]
-5. <URLResolver <module 'echo.urls' from '/app/echo/urls.py'> (None:None) ''>
-6. <module 'echo.urls' from '/app/echo/urls.py'>
+3. `[[<URLResolver <URLPattern list> (admin:admin) 'admin/'>], [<URLResolver <module 'echo.urls' from '/app/echo/urls.py'> (None:None) ''>, <URLPattern '' [name='index']>]]`
+4. `[<URLResolver <module 'echo.urls' from '/app/echo/urls.py'> (None:None) ''>, <URLPattern '' [name='index']>]`
+5. `<URLResolver <module 'echo.urls' from '/app/echo/urls.py'> (None:None) ''>`
+6. `<module 'echo.urls' from '/app/echo/urls.py'>`
 
 ```python
 from django.urls import path
@@ -39,7 +39,7 @@ urlpatterns = [
 ]
 ```
 
-7. <module 'echo.views' from '/app/echo/views.py'>
+7. `<module 'echo.views' from '/app/echo/views.py'>`
 
 ```python
 import html
@@ -49,22 +49,22 @@ def index(request):
     return HttpResponse(engines["django"].from_string('').render({}, request))
 ```
 
-8. <module 'html' from '/usr/local/lib/python3.14/html/__init__.py'>
-9. <module 'html.parser' from '/usr/local/lib/python3.14/html/parser.py'>
-10. <module 're' from '/usr/local/lib/python3.14/re/__init__.py'>
-11. <module 'enum' from '/usr/lib/python3.14/enum.py'>
-12. <module 'sys' (built-in)>
+8. `<module 'html' from '/usr/local/lib/python3.14/html/__init__.py'>`
+9. `<module 'html.parser' from '/usr/local/lib/python3.14/html/parser.py'>`
+10. `<module 're' from '/usr/local/lib/python3.14/re/__init__.py'>`
+11. `<module 'enum' from '/usr/lib/python3.14/enum.py'>`
+12. `<module 'sys' (built-in)>`
 13. modules (all imported modules dict)
-14. <module 'pathlib' from '/usr/lib/python3.14/pathlib.py'>
-15. <class 'pathlib.Path'>
-16. Path.cwd() -> PosixPath('/app')
-17. PosixPath.parent -> PosixPath('/')
-18. PosixPath.iterdir() -> <generator object Path.iterdir>
+14. `<module 'pathlib' from '/usr/lib/python3.14/pathlib.py'>`
+15. `<class 'pathlib.Path'>`
+16. `Path.cwd()` -> `PosixPath('/app')`
+17. `PosixPath.parent` -> `PosixPath('/')`
+18. `PosixPath.iterdir()` -> `<generator object Path.iterdir>`
 19. for loop 1
-20. PosixPath.name[36] != 0
-21. PosixPath.iterdir() -> <generator object Path.iterdir>
+20. `PosixPath.name[36] != 0`
+21. `PosixPath.iterdir()` -> `<generator object Path.iterdir>`
 22. for loop 2
-23. PosixPath.read_text()
+23. `PosixPath.read_text()`
 
 ```python
 for f in request.resolver_match.tried[1][0].urlconf_name.views.html.parser.re.enum.sys.modules['pathlib'].Path.cwd().parent.iterdir():
